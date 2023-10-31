@@ -21,19 +21,21 @@ public class DBUtil extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("PRAGMA foreign_keys = false");
 
-        db.execSQL("drop table if exists users");
-
         // 创建一个用户表
-        db.execSQL("create table users(s_id varchar(20) primary key," +
+        db.execSQL("drop table if exists user");
+        db.execSQL("create table user(s_id varchar(20) primary key," +
                 "s_password varchar(20)," +
                 "s_contact varchar(20)," +
                 "s_address varchar(20))");
 
         // 创建一个管理员表
-        db.execSQL("create table admins(s_id varchar(20) primary key," +
+        db.execSQL("drop table if exists admin");
+        db.execSQL("create table admin(s_id varchar(20) primary key," +
                 "s_password varchar(20)," +
                 "s_contact varchar(20)," +
                 "s_address varchar(20))");
+
+        db.execSQL("INSERT INTO admin VALUES('root','123456','QQ:838606117','high')");
 
         db.execSQL("PRAGMA foreign_keys = true");
     }
