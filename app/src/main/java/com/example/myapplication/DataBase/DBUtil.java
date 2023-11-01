@@ -1,8 +1,15 @@
 package com.example.myapplication.DataBase;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.myapplication.Tool;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class DBUtil extends SQLiteOpenHelper {
 
@@ -10,7 +17,7 @@ public class DBUtil extends SQLiteOpenHelper {
 
     public static SQLiteDatabase db = null;//通过db进行数据库操作
 
-    private static final int VERSION = 1;//版本 //每一次对数据库进行操作该数据都会加1
+    private static final int VERSION = 2;//版本 //每一次对数据库进行操作该数据都会加1
 
     public DBUtil(Context context){
         super(context,DB_NAME,null,VERSION,null);
@@ -35,6 +42,30 @@ public class DBUtil extends SQLiteOpenHelper {
                 "s_address varchar(20))");
 
         db.execSQL("INSERT INTO admin VALUES('root','123456','QQ:838606117','high')");
+
+        // 创建商品表
+        db.execSQL("drop table if exists goods");
+        db.execSQL("create table goods(g_id varchar(20) primary key," +
+                "s_id varchar(20)," +
+                "g_price varchar(20)," +
+                "g_name varchar(20)," +
+                "g_type varchar(20)," +
+                "g_describe varchar(200)," +
+                "g_picture blob)");
+
+        String imagePath = "drawable/bike.png";
+        byte[] imageBytes = Tool.loadImageBytes(imagePath);
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("g_id", "1");
+        contentValues.put("s_id", "root");
+        contentValues.put("g_price", "300￥");
+        contentValues.put("g_name", "永久牌自行车");
+        contentValues.put("g_type", "其他");
+        contentValues.put("g_describe", "99新，基本没用过，因为我根本不会骑自行车");
+        contentValues.put("g_picture", imageBytes);
+
+        db.insert("goods", null, contentValues);
 
         db.execSQL("PRAGMA foreign_keys = true");
     }

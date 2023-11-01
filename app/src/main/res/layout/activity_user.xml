@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.UserActivity">
+
+    <LinearLayout
+        android:id="@+id/user_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3DBAF3"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/user_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="搜索商品...                          "
+            android:background="@drawable/search_area"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/search">
+        </EditText>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/user_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
+
+        <ListView
+            android:id="@+id/user_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/user_main_radio"
+        android:background="#DFDFDF">
+    </View>
+
+    <LinearLayout
+        android:id="@+id/user_main_radio"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="5dp"
+        android:orientation="horizontal"
+        android:background="#FFFFFF">
+
+        <RadioButton
+            android:id="@+id/user_home"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/home"
+            android:text="首页"
+            android:textStyle="bold"
+            >
+        </RadioButton>
+    </LinearLayout>
+
+</RelativeLayout>
