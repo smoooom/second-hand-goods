@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.myapplication.Dao.UserDao;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 
@@ -47,22 +48,38 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String idT = id.getText().toString();
+                String pwdT = password.getText().toString();
+                String conT = contact.getText().toString();
+                String address = "中校区";
+                if(east.isChecked()){
+                    address = "东校区";
+                }
+                if(west.isChecked()){
+                    address = "西校区";
+                }
+                if(high.isChecked()){
+                    address = "高新区";
+                }
+
                 if(idT.isEmpty()){
                     Toast.makeText(SignUp.this, "请填写学工号", Toast.LENGTH_SHORT).show();
                 }
-
-                String pwdT = password.getText().toString();
-                if(pwdT.isEmpty()){
+                else if(pwdT.isEmpty()){
                     Toast.makeText(SignUp.this, "请填写密码", Toast.LENGTH_SHORT).show();
                 }
-
-                String conT = contact.getText().toString();
-                if(conT.isEmpty()){
+                else if(conT.isEmpty()){
                     Toast.makeText(SignUp.this, "请填写联系方式", Toast.LENGTH_SHORT).show();
                 }
-
+                else{// 表已经填完了，将新用户加入数据库
+                    int flag = UserDao.addUser(idT,pwdT,conT,address);
+                    if(flag == 1){
+                        Toast.makeText(SignUp.this, "已注册成功", Toast.LENGTH_SHORT).show();
+                    }
+                    if(flag == -1){
+                        Toast.makeText(SignUp.this, "注册失败，账号已存在", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
-
     }
 }

@@ -8,13 +8,12 @@ public class DBUtil extends SQLiteOpenHelper {
 
     private static final String DB_NAME="DataBase_Second_hand.db";//命名数据库
 
-    public static SQLiteDatabase db=null;//通过db进行数据库操作
+    public static SQLiteDatabase db = null;//通过db进行数据库操作
 
-    private static final int VERSION=1;//版本 //每一次对数据库进行操作该数据都会加1
+    private static final int VERSION = 1;//版本 //每一次对数据库进行操作该数据都会加1
 
     public DBUtil(Context context){
-        super(context,DB_NAME,VERSION,null);
-
+        super(context,DB_NAME,null,VERSION,null);
     }
 
     @Override
