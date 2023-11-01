@@ -47,8 +47,8 @@ public class GoodsAdapter extends ArrayAdapter<GoodsBean> {
         type.setText("类型：" + goodsBean.getG_type());
         address.setText("所在校区：高新区");    //待修改
 
-        byte[] imageData = goodsBean.getG_picture();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length); // 将 BLOB 数据转换为 Bitmap
+//        byte[] imageData = goodsBean.getG_picture();
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length); // 将 BLOB 数据转换为 Bitmap
 //        picture.setImageBitmap(bitmap); // 显示图像
 
         return convertView;

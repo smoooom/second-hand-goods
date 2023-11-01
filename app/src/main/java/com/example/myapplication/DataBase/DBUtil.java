@@ -62,15 +62,15 @@ public class DBUtil extends SQLiteOpenHelper {
         contentValues.put("g_name", "《软件开发：从入门到入土》");
         contentValues.put("g_type", "图书");
         contentValues.put("g_describe", "罗耀阳真的打不来代码");
-        String imagePath = "book.png";
-        byte[] imageBytes = new byte[0];
-        try {
-            imageBytes = Tool.loadImageBytes(imagePath);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        contentValues.put("g_picture", imageBytes);
+//        String imagePath = "D:/book.png";
+//        byte[] imageBytes = new byte[0];
+//        try {
+//            imageBytes = Tool.loadImageBytes(imagePath);
+//        }
+//        catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        contentValues.put("g_picture", imageBytes);
         db.insert("goods", null, contentValues);
 
         contentValues.put("g_id", "1");
@@ -79,14 +79,14 @@ public class DBUtil extends SQLiteOpenHelper {
         contentValues.put("g_name", "永久牌自行车");
         contentValues.put("g_type", "其他");
         contentValues.put("g_describe", "99新，基本没用过，因为我根本不会骑自行车");
-        imagePath = "bike.png";
-        try {
-            imageBytes = Tool.loadImageBytes(imagePath);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        contentValues.put("g_picture", imageBytes);
+//        imagePath = "D:/bike.png";
+//        try {
+//            imageBytes = Tool.loadImageBytes(imagePath);
+//        }
+//        catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        contentValues.put("g_picture", imageBytes);
         db.insert("goods", null, contentValues);
 
         db.execSQL("PRAGMA foreign_keys = true");
