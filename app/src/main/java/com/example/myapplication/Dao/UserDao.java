@@ -61,8 +61,7 @@ public class UserDao {
             String g_name = result.getString(3);
             String g_type = result.getString(4);
             String g_describe = result.getString(5);
-            String g_picture = result.getString(6);
-//            String g_picture = null;
+            byte[] g_picture = result.getBlob(6);
 
             GoodsBean goodsBean = new GoodsBean(g_id, s_id, g_price,g_name, g_type, g_describe, g_picture);
             list.add(goodsBean);

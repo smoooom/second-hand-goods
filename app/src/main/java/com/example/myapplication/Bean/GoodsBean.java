@@ -7,7 +7,7 @@ public class GoodsBean {
     private String g_name;
     private String g_type;
     private String g_describe;
-    private String g_picture;
+    private byte[] g_picture;
 
     @Override
     public String toString() {
@@ -70,18 +70,18 @@ public class GoodsBean {
         this.g_describe = g_describe;
     }
 
-    public String getG_picture() {
+    public byte[] getG_picture() {
         return g_picture;
     }
 
-    public void setG_picture(String g_picture) {
+    public void setG_picture(byte[] g_picture) {
         this.g_picture = g_picture;
     }
 
     public GoodsBean() {
     }
 
-    public GoodsBean(String g_id, String s_id, String g_price, String g_name, String g_type, String g_describe, String g_picture) {
+    public GoodsBean(String g_id, String s_id, String g_price, String g_name, String g_type, String g_describe, byte[] g_picture) {
         this.g_id = g_id;
         this.s_id = s_id;
         this.g_price = g_price;

@@ -10,37 +10,50 @@
         android:id="@+id/goods_list_picture"
         android:layout_width="128dp"
         android:layout_height="128dp"
+        android:paddingBottom="10dp"
         android:src="@drawable/bike"></ImageView>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/goods_list_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="永久牌自行车"
-            android:textStyle="bold"
-            android:textSize="20dp">
-        </TextView>
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="暂时牌自行车"
+            android:textSize="20dp"
+            android:textStyle="bold"></TextView>
 
         <TextView
             android:id="@+id/goods_list_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="价格：300元">
+            android:paddingBottom="5dp"
+            android:text="价格：999元"
+            android:textSize="15dp">
         </TextView>
 
         <TextView
             android:id="@+id/goods_list_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="种类：其他">
+            android:paddingBottom="5dp"
+            android:text="种类：其他"
+            android:textSize="15dp">
         </TextView>
 
+        <TextView
+            android:id="@+id/goods_list_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="所在校区：高新区"
+            android:textSize="15dp">
+        </TextView>
     </LinearLayout>
-
 
 </LinearLayout>

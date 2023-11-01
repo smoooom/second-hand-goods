@@ -1,31 +1,46 @@
 package com.example.myapplication;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Tool {
-    public static byte[] loadImageBytes(String imagePath) {
-        byte[] imageBytes = null;
 
+    public static byte[] loadImageBytes(String filename) throws IOException {
+
+        File f = new File(filename);
+        if (!f.exists()) {
+            throw new FileNotFoundException(filename);
+        }
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream((int) f.length());
+        BufferedInputStream in = null;
         try {
-            File imageFile = new File(imagePath);
-            FileInputStream fileInputStream = new FileInputStream(imageFile);
-            int length = (int) imageFile.length();
-            imageBytes = new byte[length];
-
-            int bytesRead = fileInputStream.read(imageBytes, 0, length);
-
-            if (bytesRead != length) {
-                // 处理读取图像数据时的错误
+            in = new BufferedInputStream(new FileInputStream(f));
+            int buf_size = 1024;
+            byte[] buffer = new byte[buf_size];
+            int len = 0;
+            while (-1 != (len = in.read(buffer, 0, buf_size))) {
+                bos.write(buffer, 0, len);
             }
-
-            fileInputStream.close();
+            return bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            bos.close();
         }
-        catch (IOException e) {
-            // 处理文件读取或其他异常
-        }
-        return imageBytes;
     }
 
 }

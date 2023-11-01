@@ -3,6 +3,8 @@ package com.example.myapplication.adapter;
 import static com.example.myapplication.R.*;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +38,18 @@ public class GoodsAdapter extends ArrayAdapter<GoodsBean> {
         TextView name = convertView.findViewById(id.goods_list_name);
         TextView price = convertView.findViewById(id.goods_list_price);
         TextView type = convertView.findViewById(id.goods_list_type);
+        TextView address = convertView.findViewById(id.goods_list_address);
         ImageView picture = convertView.findViewById(id.goods_list_picture);
 
         GoodsBean goodsBean = list.get(position);
         name.setText(goodsBean.getG_name());
-        price.setText(goodsBean.getG_price());
-        type.setText(goodsBean.getG_type());
-        picture.setImageResource(drawable.login);
+        price.setText("价格：" + goodsBean.getG_price());
+        type.setText("类型：" + goodsBean.getG_type());
+        address.setText("所在校区：高新区");    //待修改
+
+        byte[] imageData = goodsBean.getG_picture();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length); // 将 BLOB 数据转换为 Bitmap
+//        picture.setImageBitmap(bitmap); // 显示图像
 
         return convertView;
     }

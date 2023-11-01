@@ -31,6 +31,7 @@
 
     <FrameLayout
         android:id="@+id/user_fragment"
+        android:layout_below="@+id/user_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp">
@@ -68,8 +69,7 @@
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/home"
             android:text="首页"
-            android:textStyle="bold"
-            >
+            android:textStyle="bold">
         </RadioButton>
     </LinearLayout>
 

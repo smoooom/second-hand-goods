@@ -17,7 +17,7 @@ public class DBUtil extends SQLiteOpenHelper {
 
     public static SQLiteDatabase db = null;//通过db进行数据库操作
 
-    private static final int VERSION = 2;//版本 //每一次对数据库进行操作该数据都会加1
+    private static final int VERSION = 15;//版本 //每一次对数据库进行操作该数据都会加1
 
     public DBUtil(Context context){
         super(context,DB_NAME,null,VERSION,null);
@@ -33,6 +33,8 @@ public class DBUtil extends SQLiteOpenHelper {
                 "s_password varchar(20)," +
                 "s_contact varchar(20)," +
                 "s_address varchar(20))");
+
+        db.execSQL("INSERT INTO admin VALUES('PB20151749','202318','QQ:838606117','west')");
 
         // 创建一个管理员表
         db.execSQL("drop table if exists admin");
@@ -53,18 +55,38 @@ public class DBUtil extends SQLiteOpenHelper {
                 "g_describe varchar(200)," +
                 "g_picture blob)");
 
-        String imagePath = "drawable/bike.png";
-        byte[] imageBytes = Tool.loadImageBytes(imagePath);
-
         ContentValues contentValues = new ContentValues();
+        contentValues.put("g_id", "2");
+        contentValues.put("s_id", "PB20151749");
+        contentValues.put("g_price", "20￥");
+        contentValues.put("g_name", "《软件开发：从入门到入土》");
+        contentValues.put("g_type", "图书");
+        contentValues.put("g_describe", "罗耀阳真的打不来代码");
+        String imagePath = "book.png";
+        byte[] imageBytes = new byte[0];
+        try {
+            imageBytes = Tool.loadImageBytes(imagePath);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        contentValues.put("g_picture", imageBytes);
+        db.insert("goods", null, contentValues);
+
         contentValues.put("g_id", "1");
         contentValues.put("s_id", "root");
-        contentValues.put("g_price", "300￥");
+        contentValues.put("g_price", "120￥");
         contentValues.put("g_name", "永久牌自行车");
         contentValues.put("g_type", "其他");
         contentValues.put("g_describe", "99新，基本没用过，因为我根本不会骑自行车");
+        imagePath = "bike.png";
+        try {
+            imageBytes = Tool.loadImageBytes(imagePath);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         contentValues.put("g_picture", imageBytes);
-
         db.insert("goods", null, contentValues);
 
         db.execSQL("PRAGMA foreign_keys = true");
