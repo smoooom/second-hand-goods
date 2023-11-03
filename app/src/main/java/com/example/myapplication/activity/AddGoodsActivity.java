@@ -70,7 +70,6 @@ public class AddGoodsActivity extends AppCompatActivity {
                 else if(detailT.isEmpty()){
                 Toast.makeText(AddGoodsActivity.this, "请填写详情", Toast.LENGTH_SHORT).show();
             }
-
             }
         });
     }

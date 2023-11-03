@@ -43,5 +43,7 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="next_page">Next Page</string>
+    <string name="previous_page">Previous Page</string>
 
 </resources>
