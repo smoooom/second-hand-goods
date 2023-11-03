@@ -8,19 +8,8 @@ public class GoodsBean {
     private String g_type;
     private String g_describe;
     private byte[] g_picture;
-
-    @Override
-    public String toString() {
-        return "GoodsBean{" +
-                "g_id='" + g_id + '\'' +
-                ", s_id='" + s_id + '\'' +
-                ", g_price='" + g_price + '\'' +
-                ", g_name='" + g_name + '\'' +
-                ", g_type='" + g_type + '\'' +
-                ", g_describe='" + g_describe + '\'' +
-                ", g_picture='" + g_picture + '\'' +
-                '}';
-    }
+    private String s_address;
+    private String s_contact;
 
     public String getG_id() {
         return g_id;
@@ -78,10 +67,26 @@ public class GoodsBean {
         this.g_picture = g_picture;
     }
 
+    public String getS_address() {
+        return s_address;
+    }
+
+    public void setS_address(String s_address) {
+        this.s_address = s_address;
+    }
+
+    public String getS_contact() {
+        return s_contact;
+    }
+
+    public void setS_contact(String s_contact) {
+        this.s_contact = s_contact;
+    }
+
     public GoodsBean() {
     }
 
-    public GoodsBean(String g_id, String s_id, String g_price, String g_name, String g_type, String g_describe, byte[] g_picture) {
+    public GoodsBean(String g_id, String s_id, String g_price, String g_name, String g_type, String g_describe, byte[] g_picture, String s_contact, String s_address) {
         this.g_id = g_id;
         this.s_id = s_id;
         this.g_price = g_price;
@@ -89,5 +94,7 @@ public class GoodsBean {
         this.g_type = g_type;
         this.g_describe = g_describe;
         this.g_picture = g_picture;
+        this.s_address = s_address;
+        this.s_contact = s_contact;
     }
 }

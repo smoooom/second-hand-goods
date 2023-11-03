@@ -52,7 +52,12 @@ public class UserDao {
 
     public static ArrayList<GoodsBean> getAllGoods(){
         ArrayList<GoodsBean> list = new ArrayList<>();
-        Cursor result = db.rawQuery("select * from goods", null);
+
+        String query = "SELECT goods.g_id, goods.s_id, goods.g_price, goods.g_name, goods.g_type, goods.g_describe, goods.g_picture, user.s_contact, user.s_address " +
+                "FROM goods " +
+                "INNER JOIN user ON goods.s_id = user.s_id";
+
+        Cursor result = db.rawQuery(query, null);
 
         while(result.moveToNext()){
             String g_id = result.getString(0);
@@ -62,8 +67,10 @@ public class UserDao {
             String g_type = result.getString(4);
             String g_describe = result.getString(5);
             byte[] g_picture = result.getBlob(6);
+            String s_contact = result.getString(7);
+            String s_address = result.getString(8);
 
-            GoodsBean goodsBean = new GoodsBean(g_id, s_id, g_price,g_name, g_type, g_describe, g_picture);
+            GoodsBean goodsBean = new GoodsBean(g_id, s_id, g_price,g_name, g_type, g_describe, g_picture, s_contact, s_address);
             list.add(goodsBean);
         }
         return list;

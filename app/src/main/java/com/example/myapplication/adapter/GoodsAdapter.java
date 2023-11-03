@@ -45,7 +45,22 @@ public class GoodsAdapter extends ArrayAdapter<GoodsBean> {
         name.setText(goodsBean.getG_name());
         price.setText("价格：" + goodsBean.getG_price());
         type.setText("类型：" + goodsBean.getG_type());
-        address.setText("所在校区：高新区");    //待修改
+
+        String raw_address = goodsBean.getS_address();
+        switch (raw_address) {
+            case "east":
+                address.setText("所在校区：东区");
+                break;
+            case "west":
+                address.setText("所在校区：西区");
+                break;
+            case "mid":
+                address.setText("所在校区：中区");
+                break;
+            case "high":
+                address.setText("所在校区：高新区");
+                break;
+        }
 
 //        byte[] imageData = goodsBean.getG_picture();
 //        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length); // 将 BLOB 数据转换为 Bitmap
