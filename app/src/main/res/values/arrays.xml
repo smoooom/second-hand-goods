@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ctype">
+        <item>教材/图书/音像制品</item>
+        <item>手机/电脑/数码产品</item>
+        <item>衣服/鞋子/箱包</item>
+        <item>家具/窗帘/宿舍用品</item>
+        <item>演出展览门票</item>
+        <item>其他</item>
+    </string-array>
+</resources>
