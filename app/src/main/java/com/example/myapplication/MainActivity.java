@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else if(flag == 1){
                             Toast.makeText(MainActivity.this, "用户登录成功", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(MainActivity.this, UserActivity.class);
+                            startActivity(intent);
                         }
                     }
 

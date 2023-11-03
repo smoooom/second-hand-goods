@@ -17,7 +17,7 @@ public class DBUtil extends SQLiteOpenHelper {
 
     public static SQLiteDatabase db = null;//通过db进行数据库操作
 
-    private static final int VERSION = 20;//版本 //每一次对数据库进行操作该数据都会加1
+    private static final int VERSION = 24;//版本 //每一次对数据库进行操作该数据都会加1
 
     public DBUtil(Context context){
         super(context,DB_NAME,null,VERSION,null);
@@ -69,24 +69,40 @@ public class DBUtil extends SQLiteOpenHelper {
         contentValues.put("s_id", "PB20151749");
         contentValues.put("g_price", "20￥");
         contentValues.put("g_name", "《软件开发：从入门到入土》");
-        contentValues.put("g_type", "图书");
+        contentValues.put("g_type", "教材/图书/音像制品");
         contentValues.put("g_describe", "罗耀阳真的打不来代码");
         db.insert("goods", null, contentValues);
 
         contentValues.put("g_id", "3");
         contentValues.put("s_id", "PB20151796");
-        contentValues.put("g_price", "20￥");
-        contentValues.put("g_name", "《软件开：从入门到入土》");
-        contentValues.put("g_type", "图书");
-        contentValues.put("g_describe", "真的打不来代码");
+        contentValues.put("g_price", "1000￥");
+        contentValues.put("g_name", "华为mate30");
+        contentValues.put("g_type", "手机/电脑/数码产品");
+        contentValues.put("g_describe", "手机配置低，一玩崩铁就死机，我要换小米手机");
         db.insert("goods", null, contentValues);
 
         contentValues.put("g_id", "4");
         contentValues.put("s_id", "PB20151796");
-        contentValues.put("g_price", "20￥");
-        contentValues.put("g_name", "《软件发：从入门到入土》");
-        contentValues.put("g_type", "图书");
-        contentValues.put("g_describe", "真的代码");
+        contentValues.put("g_price", "19999￥");
+        contentValues.put("g_name", "爱马仕钱包");
+        contentValues.put("g_type", "衣服/鞋子/箱包");
+        contentValues.put("g_describe", "舔狗送的，全新没用过");
+        db.insert("goods", null, contentValues);
+
+        contentValues.put("g_id", "5");
+        contentValues.put("s_id", "PB20151796");
+        contentValues.put("g_price", "9999￥");
+        contentValues.put("g_name", "小米14pro钛合金版");
+        contentValues.put("g_type", "手机/电脑/数码产品");
+        contentValues.put("g_describe", "全新小米14pro钛合金版，仅售9999￥，非诚勿扰");
+        db.insert("goods", null, contentValues);
+
+        contentValues.put("g_id", "6");
+        contentValues.put("s_id", "PB20151749");
+        contentValues.put("g_price", "5999￥");
+        contentValues.put("g_name", "小米14pro钛合金版");
+        contentValues.put("g_type", "手机/电脑/数码产品");
+        contentValues.put("g_describe", "上面的心也太黑了吧，我这里只要5999");
         db.insert("goods", null, contentValues);
 
         db.execSQL("PRAGMA foreign_keys = true");
