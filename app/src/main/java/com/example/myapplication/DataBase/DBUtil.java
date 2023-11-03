@@ -34,7 +34,7 @@ public class DBUtil extends SQLiteOpenHelper {
                 "s_contact varchar(20)," +
                 "s_address varchar(20))");
 
-        db.execSQL("INSERT INTO admin VALUES('PB20151749','202318','QQ:838606117','west')");
+        db.execSQL("INSERT INTO user VALUES('PB20151749','202318','QQ:838606117','west')");
 
         // 创建一个管理员表
         db.execSQL("drop table if exists admin");
@@ -74,7 +74,7 @@ public class DBUtil extends SQLiteOpenHelper {
         db.insert("goods", null, contentValues);
 
         contentValues.put("g_id", "1");
-        contentValues.put("s_id", "root");
+        contentValues.put("s_id", "PB20151749");
         contentValues.put("g_price", "120￥");
         contentValues.put("g_name", "永久牌自行车");
         contentValues.put("g_type", "其他");
