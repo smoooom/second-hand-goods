@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.Dao.UserDao;
 import com.example.myapplication.DataBase.DBUtil;
+import com.example.myapplication.activity.AddGoodsActivity;
 import com.example.myapplication.activity.SignUp;
 import com.example.myapplication.activity.UserActivity;
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
         DBUtil.db=db;
 
-        Intent intent=new Intent(MainActivity.this, UserActivity.class);
+        Intent intent=new Intent(MainActivity.this, AddGoodsActivity.class);
         startActivity(intent);
 
         // 读取表格信息

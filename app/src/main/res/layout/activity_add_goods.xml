@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".activity.AddGoodsActivity"
+android:orientation="vertical"
+android:gravity="center_horizontal"
+android:background="#F2F8FB"
+    >
+
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/sign_up_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#3DBAF3"
+    app:navigationIcon="@drawable/back_arrow"
+    app:title="返 回"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="基本信息："
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:background="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp">
+
+            <EditText
+                android:id="@+id/upload_goods_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="#FFFFFF"
+                android:hint="物品名称:" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#B4BABD" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="物品类别："
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/upload_goods_name_category_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:entries="@array/ctype" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#B4BABD" />
+
+            <EditText
+                android:id="@+id/upload_goods_price"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#FFFFFF"
+                android:hint="物品价格:" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="bottom"
+            android:text="详情："
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp">
+
+            <EditText
+                android:id="@+id/upload_goods_detail"
+                android:layout_width="match_parent"
+                android:layout_height="234dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="#FFFFFF"
+                android:gravity="top"
+                android:text="(建议参考以下模板填写)\n准确名称：\n物品来历：\n新旧程度：\n" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="bottom"
+            android:text="图片："
+            android:textSize="15sp" />
+
+
+        <ImageView
+            android:id="@+id/upload_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/border"
+            android:clickable="true"
+            android:padding="1dp"
+            android:src="@drawable/add" />
+
+        <Button
+            android:id="@+id/upload_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#3DBAF3"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="发 布"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+</LinearLayout>
+
+
+
