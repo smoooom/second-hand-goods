@@ -5,11 +5,13 @@ import static java.lang.Math.min;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -120,6 +122,20 @@ public class UserActivity extends AppCompatActivity {
             }
         });
 
+        // 实现跳转到物品详情页的功能
+        goodsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 获取用户点击的商品
+                GoodsBean selectedGoods = selectedItems.get(position);
+
+                // 创建意图用于启动物品详情页的Activity
+                Intent intent = new Intent(UserActivity.this, GoodsDetailActivity.class);
+                // 传递商品数据给详情页
+                intent.putExtra("selectedGoods", selectedGoods);
+                startActivity(intent);
+            }
+        });
 
 
     }
