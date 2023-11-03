@@ -6,9 +6,12 @@ import static java.lang.Math.min;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,6 +41,18 @@ public class UserActivity extends AppCompatActivity {
         selectedItems.addAll(originalItems.subList(begin, end));
     }
 
+    private void filterData(String query) {
+        ArrayList<GoodsBean> filteredItems = new ArrayList<>();
+        for (GoodsBean item : originalItems) {
+            if (item.getG_name().toLowerCase().contains(query.toLowerCase())) {
+                filteredItems.add(item);
+            }
+        }
+        adapter.clear();
+        adapter.addAll(filteredItems);
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +61,12 @@ public class UserActivity extends AppCompatActivity {
         goodsList = findViewById(R.id.user_list_view);
         originalItems = UserDao.getAllGoods(); // 初始化 originalItems
 
+        // 实现翻页功能
         Button btnPreviousPage = findViewById(R.id.prevPageButton);
         Button btnNextPage = findViewById(R.id.nextPageButton);
 
         currentPage = 0; // 初始化 currentPage
-        updateSelectedItems();
+        updateSelectedItems(); // 初始化第一页的内容
 
         adapter = new GoodsAdapter(this, selectedItems); // 初始化 adapter
         goodsList.setAdapter(adapter);
@@ -82,7 +98,30 @@ public class UserActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
+        // 实现搜索功能
+        EditText searchEditText = findViewById(R.id.user_search);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // 用户输入文本时触发
+                String query = charSequence.toString();
+                filterData(query);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+
+    }
 
 }
