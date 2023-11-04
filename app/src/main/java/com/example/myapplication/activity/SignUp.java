@@ -74,6 +74,9 @@ public class SignUp extends AppCompatActivity {
                     int flag = UserDao.addUser(idT,pwdT,conT,address);
                     if(flag == 1){
                         Toast.makeText(SignUp.this, "已注册成功", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(SignUp.this, UserActivity.class);
+                        intent.putExtra("s_id", idT);
+                        startActivity(intent);
                     }
                     if(flag == -1){
                         Toast.makeText(SignUp.this, "注册失败，账号已存在", Toast.LENGTH_SHORT).show();
