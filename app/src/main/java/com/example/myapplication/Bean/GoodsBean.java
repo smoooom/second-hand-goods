@@ -1,6 +1,7 @@
 package com.example.myapplication.Bean;
 
-public class GoodsBean {
+import java.io.Serializable;
+public class GoodsBean implements Serializable{
     private Integer g_id;
     private String s_id;
     private String g_price;
