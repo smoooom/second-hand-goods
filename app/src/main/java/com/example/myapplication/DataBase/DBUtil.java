@@ -17,10 +17,10 @@ public class DBUtil extends SQLiteOpenHelper {
 
     public static SQLiteDatabase db = null;//通过db进行数据库操作
 
-    private static final int VERSION = 24;//版本 //每一次对数据库进行操作该数据都会加1
+    private static final int VERSION = 27;//版本 //每一次对数据库进行操作该数据都会加1
 
     public DBUtil(Context context){
-        super(context,DB_NAME,null,VERSION,null);
+        super(context, DB_NAME,null,VERSION,null);
     }
 
     @Override
@@ -106,6 +106,6 @@ public class DBUtil extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        onCreate(sqLiteDatabase);
+
     }
 }

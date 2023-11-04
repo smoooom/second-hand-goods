@@ -6,6 +6,7 @@ import static java.lang.Math.min;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.Bean.GoodsBean;
 import com.example.myapplication.Dao.UserDao;
+import com.example.myapplication.DataBase.DBUtil;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.GoodsAdapter;
@@ -41,8 +43,9 @@ public class UserActivity extends AppCompatActivity {
     public ListView goodsList;
 
     private void updateSelectedItems() {
+        originalItems = UserDao.getAllGoods();
         int begin = 5 * currentPage;
-        int end = Math.min(currentPage + 5, originalItems.size());
+        int end = Math.min(begin + 5, originalItems.size());
         selectedItems.clear();
         selectedItems.addAll(originalItems.subList(begin, end));
     }
@@ -76,10 +79,16 @@ public class UserActivity extends AppCompatActivity {
                 Intent intent=new Intent(UserActivity.this, AddGoodsActivity.class);
                 intent.putExtra("s_id", s_id);
                 startActivity(intent);
+                originalItems = UserDao.getAllGoods();
             }
         });
-        }
+
         goodsList = findViewById(R.id.user_list_view);
+
+//        DBUtil dbUtil = new DBUtil(UserActivity.this);
+//        SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
+//        UserDao.db=db;
+
         originalItems = UserDao.getAllGoods(); // 初始化 originalItems
 
         // 实现翻页功能

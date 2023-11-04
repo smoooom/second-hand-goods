@@ -105,11 +105,8 @@ public class AddGoodsActivity extends AppCompatActivity {
                         contentValues.put("g_describe", detailT);
                         contentValues.put("g_picture", byte_image);
                         db.insert("goods", null, contentValues);
-                        db.execSQL("PRAGMA foreign_keys = true");
-//                        }
-
-//                        cursor.close();
                         db.close();
+
                         Toast.makeText(AddGoodsActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent(AddGoodsActivity.this, UserActivity.class);
                         startActivity(intent);

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.myapplication.Bean.GoodsBean;
 import com.example.myapplication.DataBase.DBUtil;
+import com.example.myapplication.activity.AddGoodsActivity;
 
 import java.util.ArrayList;
 
