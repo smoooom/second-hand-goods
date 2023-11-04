@@ -60,7 +60,7 @@ public class UserDao {
         Cursor result = db.rawQuery(query, null);
 
         while(result.moveToNext()){
-            String g_id = result.getString(0);
+            Integer g_id = result.getInt(0);
             String s_id = result.getString(1);
             String g_price = result.getString(2);
             String g_name = result.getString(3);

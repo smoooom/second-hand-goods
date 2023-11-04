@@ -17,7 +17,7 @@ public class DBUtil extends SQLiteOpenHelper {
 
     public static SQLiteDatabase db = null;//通过db进行数据库操作
 
-    private static final int VERSION = 21;//版本 //每一次对数据库进行操作该数据都会加1
+    private static final int VERSION = 24;//版本 //每一次对数据库进行操作该数据都会加1
 
     public DBUtil(Context context){
         super(context,DB_NAME,null,VERSION,null);
@@ -48,7 +48,7 @@ public class DBUtil extends SQLiteOpenHelper {
 
         // 创建商品表
         db.execSQL("drop table if exists goods");
-        db.execSQL("create table goods(g_id varchar(20) primary key," +
+        db.execSQL("create table goods(g_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "s_id varchar(20)," +
                 "g_price varchar(20)," +
                 "g_name varchar(20)," +
@@ -57,7 +57,6 @@ public class DBUtil extends SQLiteOpenHelper {
                 "g_picture blob)");
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("g_id", "1");
         contentValues.put("s_id", "PB20151749");
         contentValues.put("g_price", "120￥");
         contentValues.put("g_name", "永久牌自行车");
@@ -65,7 +64,6 @@ public class DBUtil extends SQLiteOpenHelper {
         contentValues.put("g_describe", "99新，基本没用过，因为我根本不会骑自行车");
         db.insert("goods", null, contentValues);
 
-        contentValues.put("g_id", "2");
         contentValues.put("s_id", "PB20151749");
         contentValues.put("g_price", "20￥");
         contentValues.put("g_name", "《软件开发：从入门到入土》");
@@ -73,7 +71,6 @@ public class DBUtil extends SQLiteOpenHelper {
         contentValues.put("g_describe", "罗耀阳真的打不来代码");
         db.insert("goods", null, contentValues);
 
-        contentValues.put("g_id", "3");
         contentValues.put("s_id", "PB20151796");
         contentValues.put("g_price", "20￥");
         contentValues.put("g_name", "《软件开：从入门到入土》");
@@ -81,7 +78,6 @@ public class DBUtil extends SQLiteOpenHelper {
         contentValues.put("g_describe", "真的打不来代码");
         db.insert("goods", null, contentValues);
 
-        contentValues.put("g_id", "4");
         contentValues.put("s_id", "PB20151796");
         contentValues.put("g_price", "20￥");
         contentValues.put("g_name", "《软件发：从入门到入土》");
