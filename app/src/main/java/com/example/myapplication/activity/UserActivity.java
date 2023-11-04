@@ -128,7 +128,6 @@ public class UserActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 获取用户点击的商品
                 GoodsBean selectedGoods = selectedItems.get(position);
-
                 // 创建意图用于启动物品详情页的Activity
                 Intent intent = new Intent(UserActivity.this, GoodsDetailActivity.class);
                 // 传递商品数据给详情页
