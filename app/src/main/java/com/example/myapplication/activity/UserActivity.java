@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.RadioButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -60,6 +64,21 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+
+        Intent intent = getIntent();
+        String s_id = intent.getStringExtra("s_id");
+
+        RadioButton upload = findViewById(R.id.user_upload);
+
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserActivity.this, AddGoodsActivity.class);
+                intent.putExtra("s_id", s_id);
+                startActivity(intent);
+            }
+        });
+        }
         goodsList = findViewById(R.id.user_list_view);
         originalItems = UserDao.getAllGoods(); // 初始化 originalItems
 

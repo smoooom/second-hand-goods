@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
         DBUtil.db=db;
 
-        Intent intent=new Intent(MainActivity.this, AddGoodsActivity.class);
-        startActivity(intent);
+//        Intent intent=new Intent(MainActivity.this, AddGoodsActivity.class);
+//        startActivity(intent);
 
         // 读取表格信息
         EditText id = findViewById(R.id.main_user_id);
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 String idT = id.getText().toString();
                 String pwdT = password.getText().toString();
 
+
                 if(idT.isEmpty()){
                     Toast.makeText(MainActivity.this, "请填写学工号", Toast.LENGTH_SHORT).show();
                 }
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         else if(flag == 1){
                             Toast.makeText(MainActivity.this, "用户登录成功", Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(MainActivity.this, UserActivity.class);
+                            intent.putExtra("s_id", idT);
                             startActivity(intent);
                         }
                     }
@@ -84,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else if(flag == 1){
                             Toast.makeText(MainActivity.this, "管理员登录成功", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(MainActivity.this, SignUp.class);
+                            intent.putExtra("s_id", idT);
+                            startActivity(intent);
                         }
                     }
 
