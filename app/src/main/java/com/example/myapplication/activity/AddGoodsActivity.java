@@ -48,7 +48,6 @@ public class AddGoodsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(AddGoodsActivity.this, UserActivity.class);
-                intent.putExtra("s_id", s_id);
                 startActivity(intent);
             }
         });
@@ -110,7 +109,6 @@ public class AddGoodsActivity extends AppCompatActivity {
 
                         Toast.makeText(AddGoodsActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent(AddGoodsActivity.this, UserActivity.class);
-                        intent.putExtra("s_id", s_id);
                         startActivity(intent);
                     } catch (IOException e) {
                         e.printStackTrace();

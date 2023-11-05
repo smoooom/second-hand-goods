@@ -14,46 +14,49 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.myapplication.Bean.GoodsBean;
+import com.example.myapplication.Bean.UserBean;
 import com.example.myapplication.Dao.UserDao;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.GoodsAdapter;
+import com.example.myapplication.adapter.UserAdapter;
 
 import java.util.ArrayList;
 
-public class AdminActivity extends AppCompatActivity {
+public class Admin_UserManage extends AppCompatActivity {
     public int currentPage = 0;
 
-    public ArrayList<GoodsBean> selectedItems = new ArrayList<>();
+    public ArrayList<UserBean> selectedUsers = new ArrayList<>();
 
-    public ArrayList<GoodsBean> originalItems = new ArrayList<>();
+    public ArrayList<UserBean> originalUsers = new ArrayList<>();
 
-    public GoodsAdapter adapter;
+    public UserAdapter adapter;
 
-    public ListView goodsList;
+    public ListView userList;
 
     private void updateSelectedItems() {
-        originalItems = UserDao.getAllGoods();
+        originalUsers = UserDao.getAllUsers();
         int begin = 5 * currentPage;
-        int end = Math.min(begin + 5, originalItems.size());
-        selectedItems.clear();
-        selectedItems.addAll(originalItems.subList(begin, end));
+        int end = Math.min(begin + 5, originalUsers.size());
+        selectedUsers.clear();
+        selectedUsers.addAll(originalUsers.subList(begin, end));
     }
 
     private void filterData(String query) {
-        ArrayList<GoodsBean> filteredItems = new ArrayList<>();
-        for (GoodsBean item : originalItems) {
-            if (item.getG_name().toLowerCase().contains(query.toLowerCase())) {
-                filteredItems.add(item);
+        ArrayList<UserBean> filteredUsers = new ArrayList<>();
+        for (UserBean user : originalUsers) {
+            if (user.getS_id().toLowerCase().contains(query.toLowerCase())) {
+                filteredUsers.add(user);
             }
         }
         adapter.clear();
-        adapter.addAll(filteredItems);
+        adapter.addAll(filteredUsers);
         adapter.notifyDataSetChanged();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_admin_user_manage);
 
         Button GoodsButton = findViewById(R.id.admin_goods);
         Button UserButton = findViewById(R.id.admin_user);
@@ -61,7 +64,7 @@ public class AdminActivity extends AppCompatActivity {
         GoodsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(AdminActivity.this, AdminActivity.class);
+                Intent intent=new Intent(Admin_UserManage.this, AdminActivity.class);
                 startActivity(intent);
             }
         });
@@ -69,13 +72,14 @@ public class AdminActivity extends AppCompatActivity {
         UserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(AdminActivity.this, Admin_UserManage.class);
+                Intent intent=new Intent(Admin_UserManage.this, Admin_UserManage.class);
                 startActivity(intent);
             }
         });
 
-        goodsList = findViewById(R.id.admin_list_view);
-        originalItems = UserDao.getAllGoods(); // 初始化 originalItems
+
+        userList = findViewById(R.id.admin_list_view);
+        originalUsers = UserDao.getAllUsers(); // 初始化 originalUsers
 
         // 实现翻页功能
         Button btnPreviousPage = findViewById(R.id.prevPageButton);
@@ -84,8 +88,8 @@ public class AdminActivity extends AppCompatActivity {
         currentPage = 0; // 初始化 currentPage
         updateSelectedItems(); // 初始化第一页的内容
 
-        adapter = new GoodsAdapter(this, selectedItems); // 初始化 adapter
-        goodsList.setAdapter(adapter);
+        adapter = new UserAdapter(this, selectedUsers); // 初始化 adapter
+        userList.setAdapter(adapter);
 
         btnPreviousPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +100,7 @@ public class AdminActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 }
                 else {
-                    Toast.makeText(AdminActivity.this, "已是第一页", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Admin_UserManage.this, "已是第一页", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -104,13 +108,13 @@ public class AdminActivity extends AppCompatActivity {
         btnNextPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if((currentPage + 1) * 5 < originalItems.size()){
+                if((currentPage + 1) * 5 < originalUsers.size()){
                     currentPage++;
                     updateSelectedItems(); // 更新数据
                     adapter.notifyDataSetChanged();
                 }
                 else {
-                    Toast.makeText(AdminActivity.this, "已是最后一页", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Admin_UserManage.this, "已是最后一页", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -136,20 +140,22 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
-        goodsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 获取用户点击的商品
-                Integer selectedGoodsId = selectedItems.get(position).getG_id();
-                // 创建意图用于启动物品详情页的Activity
-                Intent intent = new Intent(AdminActivity.this, GoodsDetailActivity.class);
-                // 传递商品数据给详情页
-                intent.putExtra("selectedGoods", selectedGoodsId);
-                // 传递用户身份数据给详情页
-                intent.putExtra("role","admin");
-                startActivity(intent);
-            }
-        });
+//        userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                // 获取用户点击的商品
+//                Integer selectedGoodsId = selectedUsers.get(position).getS_id();
+//                // 创建意图用于启动物品详情页的Activity
+//                Intent intent = new Intent(Admin_UserManage.this, GoodsDetailActivity.class);
+//                // 传递商品数据给详情页
+//                intent.putExtra("selectedGoods", selectedGoodsId);
+//                // 传递用户身份数据给详情页
+//                intent.putExtra("role","admin");
+//                startActivity(intent);
+//            }
+//        });
 
     }
+
+
 }
