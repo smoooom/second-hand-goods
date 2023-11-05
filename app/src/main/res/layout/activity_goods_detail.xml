@@ -19,6 +19,18 @@
         app:navigationIcon="@drawable/back_arrow"
         app:title="返 回"/>
 
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删除该商品"
+        android:backgroundTint="#CCFB1212"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+    />
+
     <TextView
         android:id="@+id/goods_detail_goods_name"
         android:layout_width="match_parent"

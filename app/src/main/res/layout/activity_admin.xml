@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AdminActivity">
+
+    <LinearLayout
+        android:id="@+id/admin_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3DBAF3"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/admin_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="搜索商品...                          "
+            android:background="@drawable/search_area"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/search">
+        </EditText>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/admin_fragment"
+        android:layout_below="@+id/admin_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="120dp">
+
+        <ListView
+            android:id="@+id/admin_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/admin_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_above="@+id/admin_main_radio">
+
+        <Button
+            android:id="@+id/prevPageButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/previous_page" />
+
+        <Button
+            android:id="@+id/nextPageButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/next_page" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/admin_main_radio"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="5dp"
+        android:orientation="horizontal"
+        android:background="#FFFFFF">
+
+        <RadioButton
+            android:id="@+id/admin_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/home"
+            android:gravity="center"
+            android:text="首页"
+            android:textStyle="bold">
+        </RadioButton>
+
+    </LinearLayout>
+
+</RelativeLayout>

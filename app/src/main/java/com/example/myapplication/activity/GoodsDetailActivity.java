@@ -9,13 +9,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.DataBase.DBUtil;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.Bean.GoodsBean;
+
+import java.util.Objects;
 
 
 public class GoodsDetailActivity extends AppCompatActivity {
@@ -37,13 +41,46 @@ public class GoodsDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            // 从 Intent 中获取传递的 g_id
-            Integer selectedGoodsId = intent.getIntExtra("selectedGoods", 0);
-
             // 打开数据库连接
             DBUtil dbUtil = new DBUtil(GoodsDetailActivity.this);
             SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
             DBUtil.db=db;
+
+            // 从 Intent 中获取传递的 g_id
+            Integer selectedGoodsId = intent.getIntExtra("selectedGoods", 0);
+            String role = intent.getStringExtra("role");
+            Button deleteButton = findViewById(R.id.deleteButton);
+
+            if (Objects.equals(role, "admin")) {
+                // 如果是管理员，显示删除按钮
+                deleteButton.setVisibility(View.VISIBLE);
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // 构建删除的 SQL 语句
+                        String deleteQuery = "DELETE FROM goods WHERE g_id = " + selectedGoodsId;
+
+                        // 打开数据库连接
+                        DBUtil dbUtil = new DBUtil(GoodsDetailActivity.this);
+                        SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
+                        DBUtil.db=db;
+
+                        // 执行 SQL 语句
+                        db.execSQL(deleteQuery);
+
+                        // 关闭数据库连接
+                        db.close();
+
+                        Toast.makeText(GoodsDetailActivity.this, "商品已删除", Toast.LENGTH_SHORT).show();
+                        Intent AdminIntent = new Intent(GoodsDetailActivity.this, AdminActivity.class);
+                        startActivity(AdminIntent);
+                    }
+                });
+            }
+            else {
+                // 如果不是管理员，隐藏删除按钮
+                deleteButton.setVisibility(View.GONE);
+            }
 
             // 查询数据库，使用 selectedGoodsId 作为条件
             Cursor result = db.rawQuery("select * from goods INNER JOIN user ON goods.s_id = user.s_id where g_id=?", new String[] {selectedGoodsId.toString()});

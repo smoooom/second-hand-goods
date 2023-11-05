@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.myapplication.Dao.UserDao;
 import com.example.myapplication.DataBase.DBUtil;
 import com.example.myapplication.activity.AddGoodsActivity;
+import com.example.myapplication.activity.AdminActivity;
 import com.example.myapplication.activity.SignUp;
 import com.example.myapplication.activity.UserActivity;
 
@@ -86,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else if(flag == 1){
                             Toast.makeText(MainActivity.this, "管理员登录成功", Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(MainActivity.this, SignUp.class);
-                            intent.putExtra("s_id", idT);
+                            Intent intent=new Intent(MainActivity.this, AdminActivity.class);
+//                            intent.putExtra("s_id", idT);
                             startActivity(intent);
                         }
                     }
