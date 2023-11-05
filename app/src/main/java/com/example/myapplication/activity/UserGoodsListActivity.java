@@ -4,6 +4,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,7 +32,7 @@ import com.example.myapplication.adapter.GoodsAdapter;
 
 import java.util.ArrayList;
 
-public class UserActivity extends AppCompatActivity {
+public class UserGoodsListActivity extends AppCompatActivity {
     public int currentPage = 0;
 
     public ArrayList<GoodsBean> selectedItems = new ArrayList<>();
@@ -42,8 +43,9 @@ public class UserActivity extends AppCompatActivity {
 
     public ListView goodsList;
 
-    private void updateSelectedItems() {
-        originalItems = UserDao.getAllGoods();
+    private void updateSelectedItems(String s_id) {
+        String[] selectionArgs = { s_id };
+        originalItems = UserDao.getUserGoods(selectionArgs);
         int begin = 5 * currentPage;
         int end = Math.min(begin + 5, originalItems.size());
         selectedItems.clear();
@@ -65,52 +67,34 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_user_goods_list);
 
         Intent intent = getIntent();
         String s_id = intent.getStringExtra("s_id");
+        String[] selectionArgs = { s_id };
 
-        RadioButton homepage = findViewById(R.id.user_home);
-        RadioButton upload = findViewById(R.id.user_upload);
-        RadioButton user_page = findViewById(R.id.user_page);
-
-
-        homepage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(UserActivity.this, UserActivity.class);
-                intent.putExtra("s_id", s_id);
-                startActivity(intent);
-            }
-        });
-
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(UserActivity.this, AddGoodsActivity.class);
-                intent.putExtra("s_id", s_id);
-                startActivity(intent);
-            }
-        });
-
-        user_page.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(UserActivity.this, UserPageActivity.class);
-                intent.putExtra("s_id", s_id);
-                startActivity(intent);
-            }
-        });
 
         goodsList = findViewById(R.id.user_list_view);
-        originalItems = UserDao.getAllGoods(); // 初始化 originalItems
+        originalItems = UserDao.getUserGoods(selectionArgs); // 初始化 originalItems
+
+        //实现返回功能
+        Toolbar toolbar=this.findViewById(R.id.user_back);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserGoodsListActivity.this, UserPageActivity.class);
+                intent.putExtra("s_id", s_id);
+                startActivity(intent);
+            }
+        });
 
         // 实现翻页功能
         Button btnPreviousPage = findViewById(R.id.prevPageButton);
         Button btnNextPage = findViewById(R.id.nextPageButton);
 
         currentPage = 0; // 初始化 currentPage
-        updateSelectedItems(); // 初始化第一页的内容
+        updateSelectedItems(s_id); // 初始化第一页的内容
 
         adapter = new GoodsAdapter(this, selectedItems); // 初始化 adapter
         goodsList.setAdapter(adapter);
@@ -120,11 +104,11 @@ public class UserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (currentPage > 0) {
                     currentPage--;
-                    updateSelectedItems(); // 更新数据
+                    updateSelectedItems(s_id); // 更新数据
                     adapter.notifyDataSetChanged();
                 }
                 else {
-                    Toast.makeText(UserActivity.this, "已是第一页", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserGoodsListActivity.this, "已是第一页", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -134,11 +118,11 @@ public class UserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if((currentPage + 1) * 5 < originalItems.size()){
                     currentPage++;
-                    updateSelectedItems(); // 更新数据
+                    updateSelectedItems(s_id); // 更新数据
                     adapter.notifyDataSetChanged();
                 }
                 else {
-                    Toast.makeText(UserActivity.this, "已是最后一页", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserGoodsListActivity.this, "已是最后一页", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -171,7 +155,7 @@ public class UserActivity extends AppCompatActivity {
                 // 获取用户点击的商品
                 Integer selectedGoodsId = selectedItems.get(position).getG_id();
                 // 创建意图用于启动物品详情页的Activity
-                Intent intent = new Intent(UserActivity.this, GoodsDetailActivity.class);
+                Intent intent = new Intent(UserGoodsListActivity.this, GoodsDetailActivity.class);
                 // 传递商品数据给详情页
                 intent.putExtra("selectedGoods", selectedGoodsId);
                 // 传递用户身份数据给详情页

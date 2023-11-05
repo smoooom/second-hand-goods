@@ -55,25 +55,6 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        Button GoodsButton = findViewById(R.id.admin_goods);
-        Button UserButton = findViewById(R.id.admin_user);
-
-        GoodsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(AdminActivity.this, AdminActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        UserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(AdminActivity.this, Admin_UserManage.class);
-                startActivity(intent);
-            }
-        });
-
         goodsList = findViewById(R.id.admin_list_view);
         originalItems = UserDao.getAllGoods(); // 初始化 originalItems
 

@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.myapplication.Bean.GoodsBean;
-import com.example.myapplication.Bean.UserBean;
 import com.example.myapplication.DataBase.DBUtil;
 import com.example.myapplication.activity.AddGoodsActivity;
 
@@ -78,21 +77,28 @@ public class UserDao {
         return list;
     }
 
-    public static ArrayList<UserBean> getAllUsers(){
-        ArrayList<UserBean> list = new ArrayList<>();
+    public static ArrayList<GoodsBean> getUserGoods(String[] user_id){
+        ArrayList<GoodsBean> list = new ArrayList<>();
 
-        String query = "SELECT * FROM user";
+        String query = "SELECT goods.g_id, goods.s_id, goods.g_price, goods.g_name, goods.g_type, goods.g_describe, goods.g_picture, user.s_contact, user.s_address " +
+                "FROM goods " +
+                "INNER JOIN user ON goods.s_id = user.s_id where user.s_id=?";
 
-        Cursor result = db.rawQuery(query, null);
+        Cursor result = db.rawQuery(query, user_id);
 
         while(result.moveToNext()){
-            String s_id = result.getString(0);
-            String s_password = result.getString(1);
-            String s_contact = result.getString(2);
-            String s_address = result.getString(3);
+            Integer g_id = result.getInt(0);
+            String s_id = result.getString(1);
+            String g_price = result.getString(2);
+            String g_name = result.getString(3);
+            String g_type = result.getString(4);
+            String g_describe = result.getString(5);
+            byte[] g_picture = result.getBlob(6);
+            String s_contact = result.getString(7);
+            String s_address = result.getString(8);
 
-            UserBean userBean = new UserBean(s_id, s_password, s_contact, s_address);
-            list.add(userBean);
+            GoodsBean goodsBean = new GoodsBean(g_id, s_id, g_price,g_name, g_type, g_describe, g_picture, s_contact, s_address);
+            list.add(goodsBean);
         }
         return list;
     }
