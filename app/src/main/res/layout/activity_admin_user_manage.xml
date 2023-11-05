@@ -6,7 +6,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AdminActivity">
+    tools:context=".activity.Admin_UserManage">
 
     <LinearLayout
         android:id="@+id/admin_toolbar"
@@ -21,7 +21,7 @@
             android:id="@+id/admin_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="搜索商品...                          "
+            android:hint="搜索用户...                          "
             android:background="@drawable/search_area"
             android:padding="10dp"
             android:drawableLeft="@drawable/search">
