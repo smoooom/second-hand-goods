@@ -77,26 +77,14 @@
         android:background="#FFFFFF">
 
         <RadioButton
-            android:id="@+id/admin_goods"
+            android:id="@+id/admin_home"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableTop="@drawable/goods"
+            android:drawableTop="@drawable/home"
             android:gravity="center"
-            android:text="商品"
-            android:textStyle="bold">
-        </RadioButton>
-
-        <RadioButton
-            android:id="@+id/admin_user"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/user"
-            android:gravity="center"
-            android:text="用户"
+            android:text="首页"
             android:textStyle="bold">
         </RadioButton>
 

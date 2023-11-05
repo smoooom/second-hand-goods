@@ -84,6 +84,9 @@ public class GoodsBean implements Serializable{
         this.s_contact = s_contact;
     }
 
+    public GoodsBean() {
+    }
+
     public GoodsBean(Integer g_id, String s_id, String g_price, String g_name, String g_type, String g_describe, byte[] g_picture, String s_contact, String s_address) {
         this.g_id = g_id;
         this.s_id = s_id;

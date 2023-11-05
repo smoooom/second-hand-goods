@@ -93,7 +93,19 @@ public class UserActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String s_id = intent.getStringExtra("s_id");
 
+        RadioButton homepage = findViewById(R.id.user_home);
         RadioButton upload = findViewById(R.id.user_upload);
+        RadioButton user_page = findViewById(R.id.user_page);
+
+
+        homepage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserActivity.this, UserActivity.class);
+                intent.putExtra("s_id", s_id);
+                startActivity(intent);
+            }
+        });
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +113,15 @@ public class UserActivity extends AppCompatActivity {
                 Intent intent=new Intent(UserActivity.this, AddGoodsActivity.class);
                 intent.putExtra("s_id", s_id);
                 startActivity(intent);
-                originalItems = UserDao.getAllGoods();
+            }
+        });
+
+        user_page.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserActivity.this, UserPageActivity.class);
+                intent.putExtra("s_id", s_id);
+                startActivity(intent);
             }
         });
 
@@ -209,7 +229,6 @@ public class UserActivity extends AppCompatActivity {
                 // 传递用户身份数据给详情页
                 intent.putExtra("role","user");
                 startActivity(intent);
-                System.out.println(123);
             }
         });
 
