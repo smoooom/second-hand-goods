@@ -151,11 +151,11 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 获取用户点击的商品
-                Integer selectedGoods = selectedItems.get(position).getG_id();
+                Integer selectedGoodsId = selectedItems.get(position).getG_id();
                 // 创建意图用于启动物品详情页的Activity
                 Intent intent = new Intent(UserActivity.this, GoodsDetailActivity.class);
                 // 传递商品数据给详情页
-                intent.putExtra("selectedGoods", selectedGoods);
+                intent.putExtra("selectedGoods", selectedGoodsId);
                 startActivity(intent);
                 System.out.println(123);
             }

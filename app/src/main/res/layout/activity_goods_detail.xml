@@ -24,8 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#FFFFFF"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="物品名称：暂时牌自行车"
         android:textColor="#000000"
         android:textSize="20sp"
@@ -36,6 +36,31 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#363A3E" />
+
+    <TextView
+        android:id="@+id/goods_detail_goods_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFFFFF"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="物品类型：其他"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/goods_detail_goods_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFFFFF"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="物品价格：100￥"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        tools:ignore="HardcodedText" />
+
 
     <TextView
         android:id="@+id/goods_detail_goods_address"
@@ -60,6 +85,11 @@
         android:textColor="#000000"
         android:textSize="15sp"
         tools:ignore="HardcodedText" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#363A3E" />
 
     <TextView
         android:id="@+id/goods_detail_goods_describe"
