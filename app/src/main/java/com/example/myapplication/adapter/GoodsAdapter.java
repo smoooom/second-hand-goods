@@ -45,7 +45,6 @@ public class GoodsAdapter extends ArrayAdapter<GoodsBean> {
         name.setText(goodsBean.getG_name());
         price.setText("价格：" + goodsBean.getG_price());
         type.setText("类型：" + goodsBean.getG_type());
-//        picture.setImageResource();
 
         String raw_address = goodsBean.getS_address();
         switch (raw_address) {
