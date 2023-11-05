@@ -21,13 +21,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 
+import com.example.myapplication.Bean.CategoryBean;
 import com.example.myapplication.Bean.GoodsBean;
 import com.example.myapplication.Dao.UserDao;
 import com.example.myapplication.DataBase.DBUtil;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.GoodsAdapter;
+import com.example.myapplication.adapter.CategoryAdapter;
 
 import java.util.ArrayList;
 
@@ -62,6 +66,25 @@ public class UserActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    protected void filterCategory(String category) {
+        ArrayList<GoodsBean> filteredItems = new ArrayList<>();
+        if (category.equals("全部")) {
+            filteredItems.addAll(originalItems);
+        }
+        else{
+            for (GoodsBean item : originalItems) {
+                if (item.getG_type().toLowerCase().equals(category.toLowerCase())) {
+                    filteredItems.add(item);
+                }
+            }
+        }
+        adapter.clear();
+        adapter.addAll(filteredItems);
+        adapter.notifyDataSetChanged();
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,17 +106,46 @@ public class UserActivity extends AppCompatActivity {
         });
 
         goodsList = findViewById(R.id.user_list_view);
+
+//        DBUtil dbUtil = new DBUtil(UserActivity.this);
+//        SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
+//        UserDao.db=db;
+
+//        originalItems = UserDao.getAllGoods(); // 初始化 originalItems
+
+        Button btnProfile = findViewById(R.id.user_profile);  // 用户主页
+        Button btnPreviousPage = findViewById(R.id.prevPageButton);  // 上一页
+        Button btnNextPage = findViewById(R.id.nextPageButton);   // 下一页
+        Spinner spinner = findViewById(R.id.user_spinner);   // 下拉栏
+
+        // Category的Adapter
+//        ArrayList<CategoryBean> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.ctype, android.R.layout.simple_spinner_dropdown_item);
+        ArrayList<CategoryBean> categoryList = CategoryAdapter.getAllCategories(this);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this, categoryList);
+        
         originalItems = UserDao.getAllGoods(); // 初始化 originalItems
 
-        // 实现翻页功能
-        Button btnPreviousPage = findViewById(R.id.prevPageButton);
-        Button btnNextPage = findViewById(R.id.nextPageButton);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(categoryAdapter);
 
         currentPage = 0; // 初始化 currentPage
         updateSelectedItems(); // 初始化第一页的内容
 
         adapter = new GoodsAdapter(this, selectedItems); // 初始化 adapter
         goodsList.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                CategoryBean selectedItem = (CategoryBean)spinner.getSelectedItem();
+                String selectedCategory = selectedItem.get_title();
+                filterCategory(selectedCategory);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+        });
 
         btnPreviousPage.setOnClickListener(new View.OnClickListener() {
             @Override
