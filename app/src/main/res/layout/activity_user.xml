@@ -28,10 +28,16 @@
         </EditText>
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/user_spinner"
+        android:layout_below="@id/user_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <FrameLayout
         android:id="@+id/user_fragment"
-        android:layout_below="@+id/user_toolbar"
+        android:layout_below="@+id/user_spinner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="120dp">
@@ -97,6 +103,16 @@
             android:drawableTop="@drawable/add32"
             android:gravity="center"
             android:text="发布"
+            android:textStyle="bold"></RadioButton>
+        <RadioButton
+            android:id="@+id/user_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/icon_profile"
+            android:gravity="center"
+            android:text="我的"
             android:textStyle="bold"></RadioButton>
     </LinearLayout>
 
