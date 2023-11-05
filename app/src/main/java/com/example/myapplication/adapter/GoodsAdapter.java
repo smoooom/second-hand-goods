@@ -63,9 +63,9 @@ public class GoodsAdapter extends ArrayAdapter<GoodsBean> {
                 break;
         }
 
-//        byte[] imageData = goodsBean.getG_picture();
-//        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length); // 将 BLOB 数据转换为 Bitmap
-//        picture.setImageBitmap(bitmap); // 显示图像
+        byte[] imageData = goodsBean.getG_picture();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length); // 将 BLOB 数据转换为 Bitmap
+        picture.setImageBitmap(bitmap); // 显示图像
 
         return convertView;
     }

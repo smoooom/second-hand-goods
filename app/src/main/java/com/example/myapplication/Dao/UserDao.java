@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.myapplication.Bean.GoodsBean;
+import com.example.myapplication.Bean.UserBean;
 import com.example.myapplication.DataBase.DBUtil;
 import com.example.myapplication.activity.AddGoodsActivity;
 
@@ -73,6 +74,25 @@ public class UserDao {
 
             GoodsBean goodsBean = new GoodsBean(g_id, s_id, g_price,g_name, g_type, g_describe, g_picture, s_contact, s_address);
             list.add(goodsBean);
+        }
+        return list;
+    }
+
+    public static ArrayList<UserBean> getAllUsers(){
+        ArrayList<UserBean> list = new ArrayList<>();
+
+        String query = "SELECT * FROM user";
+
+        Cursor result = db.rawQuery(query, null);
+
+        while(result.moveToNext()){
+            String s_id = result.getString(0);
+            String s_password = result.getString(1);
+            String s_contact = result.getString(2);
+            String s_address = result.getString(3);
+
+            UserBean userBean = new UserBean(s_id, s_password, s_contact, s_address);
+            list.add(userBean);
         }
         return list;
     }
