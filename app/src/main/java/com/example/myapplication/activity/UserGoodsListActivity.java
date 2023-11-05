@@ -4,6 +4,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,21 +22,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.Spinner;
-import android.widget.ArrayAdapter;
 
-import com.example.myapplication.Bean.CategoryBean;
 import com.example.myapplication.Bean.GoodsBean;
 import com.example.myapplication.Dao.UserDao;
 import com.example.myapplication.DataBase.DBUtil;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.GoodsAdapter;
-import com.example.myapplication.adapter.CategoryAdapter;
 
 import java.util.ArrayList;
 
-public class UserActivity extends AppCompatActivity {
+public class UserGoodsListActivity extends AppCompatActivity {
     public int currentPage = 0;
 
     public ArrayList<GoodsBean> selectedItems = new ArrayList<>();
@@ -46,8 +43,9 @@ public class UserActivity extends AppCompatActivity {
 
     public ListView goodsList;
 
-    private void updateSelectedItems() {
-        originalItems = UserDao.getAllGoods();
+    private void updateSelectedItems(String s_id) {
+        String[] selectionArgs = { s_id };
+        originalItems = UserDao.getUserGoods(selectionArgs);
         int begin = 5 * currentPage;
         int end = Math.min(begin + 5, originalItems.size());
         selectedItems.clear();
@@ -66,117 +64,51 @@ public class UserActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    protected void filterCategory(String category) {
-        ArrayList<GoodsBean> filteredItems = new ArrayList<>();
-        if (category.equals("全部")) {
-            filteredItems.addAll(originalItems);
-        }
-        else{
-            for (GoodsBean item : originalItems) {
-                if (item.getG_type().toLowerCase().equals(category.toLowerCase())) {
-                    filteredItems.add(item);
-                }
-            }
-        }
-        adapter.clear();
-        adapter.addAll(filteredItems);
-        adapter.notifyDataSetChanged();
-    }
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_user_goods_list);
 
         Intent intent = getIntent();
         String s_id = intent.getStringExtra("s_id");
+        String[] selectionArgs = { s_id };
 
-        RadioButton homepage = findViewById(R.id.user_home);
-        RadioButton upload = findViewById(R.id.user_upload);
-        RadioButton user_page = findViewById(R.id.user_page);
-
-
-        homepage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(UserActivity.this, UserActivity.class);
-                intent.putExtra("s_id", s_id);
-                startActivity(intent);
-            }
-        });
-
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(UserActivity.this, AddGoodsActivity.class);
-                intent.putExtra("s_id", s_id);
-                startActivity(intent);
-            }
-        });
-
-        user_page.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(UserActivity.this, UserPageActivity.class);
-                intent.putExtra("s_id", s_id);
-                startActivity(intent);
-            }
-        });
 
         goodsList = findViewById(R.id.user_list_view);
+        originalItems = UserDao.getUserGoods(selectionArgs); // 初始化 originalItems
 
-//        DBUtil dbUtil = new DBUtil(UserActivity.this);
-//        SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
-//        UserDao.db=db;
+        //实现返回功能
+        Toolbar toolbar=this.findViewById(R.id.user_back);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserGoodsListActivity.this, UserPageActivity.class);
+                intent.putExtra("s_id", s_id);
+                startActivity(intent);
+            }
+        });
 
-//        originalItems = UserDao.getAllGoods(); // 初始化 originalItems
-
-        Button btnProfile = findViewById(R.id.user_profile);  // 用户主页
-        Button btnPreviousPage = findViewById(R.id.prevPageButton);  // 上一页
-        Button btnNextPage = findViewById(R.id.nextPageButton);   // 下一页
-        Spinner spinner = findViewById(R.id.user_spinner);   // 下拉栏
-
-        // Category的Adapter
-//        ArrayList<CategoryBean> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.ctype, android.R.layout.simple_spinner_dropdown_item);
-        ArrayList<CategoryBean> categoryList = CategoryAdapter.getAllCategories(this);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this, categoryList);
-        
-        originalItems = UserDao.getAllGoods(); // 初始化 originalItems
-
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(categoryAdapter);
+        // 实现翻页功能
+        Button btnPreviousPage = findViewById(R.id.prevPageButton);
+        Button btnNextPage = findViewById(R.id.nextPageButton);
 
         currentPage = 0; // 初始化 currentPage
-        updateSelectedItems(); // 初始化第一页的内容
+        updateSelectedItems(s_id); // 初始化第一页的内容
 
         adapter = new GoodsAdapter(this, selectedItems); // 初始化 adapter
         goodsList.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                CategoryBean selectedItem = (CategoryBean)spinner.getSelectedItem();
-                String selectedCategory = selectedItem.get_title();
-                filterCategory(selectedCategory);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-            }
-        });
 
         btnPreviousPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (currentPage > 0) {
                     currentPage--;
-                    updateSelectedItems(); // 更新数据
+                    updateSelectedItems(s_id); // 更新数据
                     adapter.notifyDataSetChanged();
                 }
                 else {
-                    Toast.makeText(UserActivity.this, "已是第一页", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserGoodsListActivity.this, "已是第一页", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -186,11 +118,11 @@ public class UserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if((currentPage + 1) * 5 < originalItems.size()){
                     currentPage++;
-                    updateSelectedItems(); // 更新数据
+                    updateSelectedItems(s_id); // 更新数据
                     adapter.notifyDataSetChanged();
                 }
                 else {
-                    Toast.makeText(UserActivity.this, "已是最后一页", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserGoodsListActivity.this, "已是最后一页", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -223,7 +155,7 @@ public class UserActivity extends AppCompatActivity {
                 // 获取用户点击的商品
                 Integer selectedGoodsId = selectedItems.get(position).getG_id();
                 // 创建意图用于启动物品详情页的Activity
-                Intent intent = new Intent(UserActivity.this, GoodsDetailActivity.class);
+                Intent intent = new Intent(UserGoodsListActivity.this, GoodsDetailActivity.class);
                 // 传递商品数据给详情页
                 intent.putExtra("selectedGoods", selectedGoodsId);
                 // 传递用户身份数据给详情页

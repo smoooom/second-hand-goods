@@ -15,10 +15,19 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".activity.Admin_UserManage"
+            android:name=".activity.UserInfoChangeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UserGoodsListActivity"
             android:exported="false" />
         <activity
             android:name=".activity.AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Admin_UserManage"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UserPageActivity"
             android:exported="false" />
         <activity
             android:name=".activity.GoodsDetailActivity"
