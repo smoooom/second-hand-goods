@@ -28,18 +28,18 @@ public class GoodsDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            GoodsBean selectedGoods = (GoodsBean) intent.getSerializableExtra("selectedGoods");
-            // 根据商品数据更新物品详情页的视图
-
-            if (selectedGoods != null) {
-                // 设置商品详细信息的文本视图和图像视图内容
-                goodsNameTextView.setText("物品名称：" + selectedGoods.getG_name());
-                goodsAddressTextView.setText("所在校区：" + selectedGoods.getS_address());
-                goodsContactTextView.setText("联系方式：" + selectedGoods.getS_contact());
-                goodsDescribeTextView.setText("物品描述：" + selectedGoods.getG_describe());
-                // 设置图片，如果有的话
-                // goodsImageView.setImageBitmap(...);
-            }
+//            GoodsBean selectedGoods = (GoodsBean) intent.getSerializableExtra("selectedGoods");
+//            // 根据商品数据更新物品详情页的视图
+//
+//            if (selectedGoods != null) {
+//                // 设置商品详细信息的文本视图和图像视图内容
+//                goodsNameTextView.setText("物品名称：" + selectedGoods.getG_name());
+//                goodsAddressTextView.setText("所在校区：" + selectedGoods.getS_address());
+//                goodsContactTextView.setText("联系方式：" + selectedGoods.getS_contact());
+//                goodsDescribeTextView.setText("物品描述：" + selectedGoods.getG_describe());
+//                // 设置图片，如果有的话
+//                // goodsImageView.setImageBitmap(...);
+//            }
         }
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.goods_detail_toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
