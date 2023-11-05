@@ -114,16 +114,6 @@
             android:gravity="center"
             android:text="我的"
             android:textStyle="bold"></RadioButton>
-        <RadioButton
-            android:id="@+id/user_profile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/icon_profile"
-            android:gravity="center"
-            android:text="我的"
-            android:textStyle="bold"></RadioButton>
     </LinearLayout>
 
 </RelativeLayout>

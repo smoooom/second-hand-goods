@@ -37,5 +37,58 @@ public class UserInfoChangeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info_change);
+
+
+        Intent intent = getIntent();
+        String s_id = intent.getStringExtra("s_id");
+
+        //实现返回功能
+        Toolbar toolbar=this.findViewById(R.id.user_info_change_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserInfoChangeActivity.this, UserPageActivity.class);
+                intent.putExtra("s_id", s_id);
+                startActivity(intent);
+            }
+        });
+
+        EditText contact = findViewById(R.id.info_change_user_contact);
+        RadioButton mid = findViewById(R.id.info_change_user_mid);
+        mid.setChecked(true);
+        RadioButton east = findViewById(R.id.info_change_user_east);
+        RadioButton west = findViewById(R.id.info_change_user_west);
+        RadioButton high = findViewById(R.id.info_change_user_high);
+        Button change = findViewById(R.id.info_change_button);
+
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String conT = contact.getText().toString();
+                String address = "中校区";
+                if(east.isChecked()){
+                    address = "东校区";
+                }
+                if(west.isChecked()){
+                    address = "西校区";
+                }
+                if(high.isChecked()){
+                    address = "高新区";
+                }
+
+                if(conT.isEmpty()){
+                    Toast.makeText(UserInfoChangeActivity.this, "请填写新的联系方式", Toast.LENGTH_SHORT).show();
+                }
+                else{// 表已经填完了，修改数据库
+                    String[] selectionArgs = { s_id };
+                    UserDao.changeInfo(selectionArgs,conT,address);
+                    Toast.makeText(UserInfoChangeActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(UserInfoChangeActivity.this, UserPageActivity.class);
+                    intent.putExtra("s_id", s_id);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }

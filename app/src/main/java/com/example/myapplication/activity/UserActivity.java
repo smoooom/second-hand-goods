@@ -127,13 +127,7 @@ public class UserActivity extends AppCompatActivity {
 
         goodsList = findViewById(R.id.user_list_view);
 
-//        DBUtil dbUtil = new DBUtil(UserActivity.this);
-//        SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
-//        UserDao.db=db;
 
-//        originalItems = UserDao.getAllGoods(); // 初始化 originalItems
-
-        Button btnProfile = findViewById(R.id.user_profile);  // 用户主页
         Button btnPreviousPage = findViewById(R.id.prevPageButton);  // 上一页
         Button btnNextPage = findViewById(R.id.nextPageButton);   // 下一页
         Spinner spinner = findViewById(R.id.user_spinner);   // 下拉栏

@@ -1,5 +1,6 @@
 package com.example.myapplication.Dao;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,6 +29,48 @@ public class UserDao {
         catch (Exception e){
             return -1;
         }
+    }
+
+    // 修改信息
+    public static void changeInfo(String[] user_id,String ...data){
+        ContentValues values = new ContentValues();
+        values.put("s_contact",data[0]);
+        values.put("s_address",data[1]);
+
+        String whereClause = "s_id = ?";
+        db.update("user", values, whereClause, user_id);
+    }
+
+
+    // 判断密码是否正确
+    @SuppressLint("Range")
+    public static int judgePassword(String[] user_id, String password){
+        ContentValues values = new ContentValues();
+
+        String[] columns = { "s_password" };
+        String selection = "s_id = ?";
+        String[] selectionArgs = user_id;
+
+        Cursor cursor = db.query("user", columns, selection, selectionArgs, null, null, null);
+
+        String true_password = null;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            true_password = cursor.getString(cursor.getColumnIndex("s_password"));
+            cursor.close();
+        }
+        if (true_password.equals(password)) return 1;
+        else return 0;
+    }
+
+
+    // 修改密码
+    public static void changePassword(String[] user_id,String password){
+        ContentValues values = new ContentValues();
+        values.put("s_password",password);
+
+        String whereClause = "s_id = ?";
+        db.update("user", values, whereClause, user_id);
     }
 
     public static int LoginUser(String id, String password, String role){

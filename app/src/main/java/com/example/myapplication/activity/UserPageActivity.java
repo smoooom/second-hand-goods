@@ -62,6 +62,7 @@ public class UserPageActivity extends AppCompatActivity {
         Button user_log_out = findViewById(R.id.log_out_button);
         Toolbar user_info_change = findViewById(R.id.user_info_change);
         Toolbar user_goods_list = findViewById(R.id.user_goods_list);
+        Toolbar user_password_change = findViewById(R.id.user_password_change);
 
 
         // 打开数据库连接
@@ -126,6 +127,15 @@ public class UserPageActivity extends AppCompatActivity {
         });
 
 
+        //跳转至修改密码
+        user_password_change.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserPageActivity.this, UserPasswordChangeActivity.class);
+                intent.putExtra("s_id", s_id);
+                startActivity(intent);
+            }
+        });
 
 
         //实现退出登录功能（直接返回登录页面）
