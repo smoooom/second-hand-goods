@@ -165,10 +165,10 @@ public class UserGoodsListActivity extends AppCompatActivity {
                 Integer selectedGoodsId = selectedItems.get(position).getG_id();
                 // 创建意图用于启动物品详情页的Activity
                 Intent intent = new Intent(UserGoodsListActivity.this, GoodsDetailActivity.class);
-                // 传递商品数据给详情页
+                // 传递数据给详情页
                 intent.putExtra("selectedGoods", selectedGoodsId);
-                // 传递用户身份数据给详情页
-                intent.putExtra("role","admin");
+                intent.putExtra("s_id", s_id);
+                intent.putExtra("role","owner");
                 startActivity(intent);
             }
         });

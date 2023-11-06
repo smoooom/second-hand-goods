@@ -49,9 +49,10 @@ public class GoodsDetailActivity extends AppCompatActivity {
             // 从 Intent 中获取传递的 g_id
             Integer selectedGoodsId = intent.getIntExtra("selectedGoods", 0);
             String role = intent.getStringExtra("role");
+            String S_id = intent.getStringExtra("s_id");
             Button deleteButton = findViewById(R.id.deleteButton);
 
-            if (Objects.equals(role, "admin")) {
+            if (Objects.equals(role, "admin") || Objects.equals(role, "owner") ) {
                 // 如果是管理员，显示删除按钮
                 deleteButton.setVisibility(View.VISIBLE);
                 deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -72,9 +73,21 @@ public class GoodsDetailActivity extends AppCompatActivity {
                         db.close();
 
                         Toast.makeText(GoodsDetailActivity.this, "商品已删除", Toast.LENGTH_SHORT).show();
-                        Intent AdminIntent = new Intent(GoodsDetailActivity.this, AdminActivity.class);
-                        startActivity(AdminIntent);
+                        if (Objects.equals(role, "admin")){
+                            Intent AdminIntent = new Intent(GoodsDetailActivity.this, AdminActivity.class);
+                            AdminIntent.putExtra("s_id", S_id);
+                            startActivity(AdminIntent);
+                        }
+
+                        if (Objects.equals(role, "owner")){
+                            Intent UserIntent = new Intent(GoodsDetailActivity.this, UserGoodsListActivity.class);
+                            UserIntent.putExtra("s_id", S_id);
+                            UserIntent.putExtra("role", "user");
+                            startActivity(UserIntent);
+                        }
+
                     }
+
                 });
             }
             else {

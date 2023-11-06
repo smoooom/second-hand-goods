@@ -36,6 +36,9 @@ public class DBUtil extends SQLiteOpenHelper {
 
         db.execSQL("INSERT INTO user VALUES('PB20151749','202318','QQ:838606117','west')");
         db.execSQL("INSERT INTO user VALUES('PB20151796','202318','QQ:111111111','east')");
+        db.execSQL("INSERT INTO user VALUES('PB21111111','202318','QQ:111111111','mid')");
+        db.execSQL("INSERT INTO user VALUES('PB21111112','202318','QQ:111111111','mid')");
+        db.execSQL("INSERT INTO user VALUES('PB21111113','202318','QQ:111111111','mid')");
 
         // 创建一个管理员表
         db.execSQL("drop table if exists admin");
