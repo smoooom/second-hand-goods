@@ -60,6 +60,7 @@ public class Admin_UserManage extends AppCompatActivity {
 
         Button GoodsButton = findViewById(R.id.admin_goods);
         Button UserButton = findViewById(R.id.admin_user);
+        Button StatisticsButton = findViewById(R.id.admin_statistics);
 
         GoodsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +78,13 @@ public class Admin_UserManage extends AppCompatActivity {
             }
         });
 
+        StatisticsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Admin_UserManage.this, Statistics.class);
+                startActivity(intent);
+            }
+        });
 
         userList = findViewById(R.id.admin_list_view);
         originalUsers = UserDao.getAllUsers(); // 初始化 originalUsers

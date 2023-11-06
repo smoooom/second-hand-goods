@@ -57,6 +57,7 @@ public class AdminActivity extends AppCompatActivity {
 
         Button GoodsButton = findViewById(R.id.admin_goods);
         Button UserButton = findViewById(R.id.admin_user);
+        Button StatisticsButton = findViewById(R.id.admin_statistics);
 
         GoodsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +71,14 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(AdminActivity.this, Admin_UserManage.class);
+                startActivity(intent);
+            }
+        });
+
+        StatisticsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(AdminActivity.this, Statistics.class);
                 startActivity(intent);
             }
         });
