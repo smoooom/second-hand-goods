@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activity.Admin_UserDetail"
+            android:exported="false" />
+        <activity
             android:name=".activity.UserPasswordChangeActivity"
             android:exported="false" />
         <activity

@@ -140,20 +140,18 @@ public class Admin_UserManage extends AppCompatActivity {
             }
         });
 
-//        userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                // 获取用户点击的商品
-//                Integer selectedGoodsId = selectedUsers.get(position).getS_id();
-//                // 创建意图用于启动物品详情页的Activity
-//                Intent intent = new Intent(Admin_UserManage.this, GoodsDetailActivity.class);
-//                // 传递商品数据给详情页
-//                intent.putExtra("selectedGoods", selectedGoodsId);
-//                // 传递用户身份数据给详情页
-//                intent.putExtra("role","admin");
-//                startActivity(intent);
-//            }
-//        });
+        userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 获取用户点击的商品
+                String s_id = selectedUsers.get(position).getS_id();
+                // 创建意图用于启动用户详情页的Activity
+                Intent intent = new Intent(Admin_UserManage.this, Admin_UserDetail.class);
+                // 传递用户id给详情页
+                intent.putExtra("s_id", s_id);
+                startActivity(intent);
+            }
+        });
 
     }
 

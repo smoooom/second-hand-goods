@@ -10,34 +10,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplication.Bean.GoodsBean;
-import com.example.myapplication.Dao.UserDao;
 import com.example.myapplication.DataBase.DBUtil;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.adapter.GoodsAdapter;
 
-import java.util.ArrayList;
-
-public class UserPageActivity extends AppCompatActivity {
+public class Admin_UserDetail extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_page);
+        setContentView(R.layout.activity_admin_user_detail);
 
         Intent intent = getIntent();
         String s_id = intent.getStringExtra("s_id");
@@ -48,24 +33,19 @@ public class UserPageActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(UserPageActivity.this, UserActivity.class);
-                intent.putExtra("s_id", s_id);
+                Intent intent=new Intent(Admin_UserDetail.this, Admin_UserManage.class);
                 startActivity(intent);
             }
         });
 
-
         TextView user_id = findViewById(R.id.user_id);
         TextView user_address = findViewById(R.id.user_address);
         TextView user_contact = findViewById(R.id.user_contact);
-        Button user_log_out = findViewById(R.id.log_out_button);
-        Toolbar user_info_change = findViewById(R.id.user_info_change);
+        Button user_delete = findViewById(R.id.delete_user_button);
         Toolbar user_goods_list = findViewById(R.id.user_goods_list);
-        Toolbar user_password_change = findViewById(R.id.user_password_change);
-
 
         // 打开数据库连接
-        DBUtil dbUtil = new DBUtil(UserPageActivity.this);
+        DBUtil dbUtil = new DBUtil(Admin_UserDetail.this);
         SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
         DBUtil.db=db;
 
@@ -102,49 +82,42 @@ public class UserPageActivity extends AppCompatActivity {
         cursor.close(); // 关闭游标
         db.close(); // 关闭数据库连接
 
-
-        //跳转至修改个人信息
-        user_info_change.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(UserPageActivity.this, UserInfoChangeActivity.class);
-                intent.putExtra("s_id", s_id);
-                startActivity(intent);
-            }
-        });
-
-
-
         //跳转至我的出售
         user_goods_list.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(UserPageActivity.this, UserGoodsListActivity.class);
+                Intent intent=new Intent(Admin_UserDetail.this, UserGoodsListActivity.class);
                 intent.putExtra("s_id", s_id);
-                intent.putExtra("role","user");
+                intent.putExtra("role","admin");
                 startActivity(intent);
             }
         });
 
-
-        //跳转至修改密码
-        user_password_change.setOnClickListener(new View.OnClickListener(){
+        //实现删除账号功能
+        user_delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(UserPageActivity.this, UserPasswordChangeActivity.class);
-                intent.putExtra("s_id", s_id);
+                // 构建删除的 SQL 语句
+                String deleteQuery = "DELETE FROM user WHERE s_id = " + s_id;
+
+                // 打开数据库连接
+                DBUtil dbUtil = new DBUtil(Admin_UserDetail.this);
+                SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
+                DBUtil.db=db;
+
+                // 执行 SQL 语句
+                db.execSQL(deleteQuery);
+
+                // 关闭数据库连接
+                db.close();
+
+                Toast.makeText(Admin_UserDetail.this, "用户已删除", Toast.LENGTH_SHORT).show();
+
+                Intent intent=new Intent(Admin_UserDetail.this, Admin_UserManage.class);
                 startActivity(intent);
             }
         });
 
 
-        //实现退出登录功能（直接返回登录页面）
-        user_log_out.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(UserPageActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }

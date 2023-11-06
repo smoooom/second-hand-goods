@@ -31,6 +31,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapter.GoodsAdapter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UserGoodsListActivity extends AppCompatActivity {
     public int currentPage = 0;
@@ -70,9 +71,9 @@ public class UserGoodsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_goods_list);
 
         Intent intent = getIntent();
+        String role = intent.getStringExtra("role");
         String s_id = intent.getStringExtra("s_id");
         String[] selectionArgs = { s_id };
-
 
         goodsList = findViewById(R.id.user_list_view);
         originalItems = UserDao.getUserGoods(selectionArgs); // 初始化 originalItems
@@ -83,9 +84,17 @@ public class UserGoodsListActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(UserGoodsListActivity.this, UserPageActivity.class);
-                intent.putExtra("s_id", s_id);
-                startActivity(intent);
+                if (Objects.equals(role, "user")){
+                    Intent intent=new Intent(UserGoodsListActivity.this, UserPageActivity.class);
+                    intent.putExtra("s_id", s_id);
+                    startActivity(intent);
+                }
+                else if (Objects.equals(role, "admin")){
+                    Intent intent=new Intent(UserGoodsListActivity.this, Admin_UserDetail.class);
+                    intent.putExtra("s_id", s_id);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -159,7 +168,7 @@ public class UserGoodsListActivity extends AppCompatActivity {
                 // 传递商品数据给详情页
                 intent.putExtra("selectedGoods", selectedGoodsId);
                 // 传递用户身份数据给详情页
-                intent.putExtra("role","user");
+                intent.putExtra("role","admin");
                 startActivity(intent);
             }
         });
