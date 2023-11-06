@@ -32,6 +32,7 @@ public class UserGoodsChangeActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri; // 用于存储选定的图片的 URI
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class UserGoodsChangeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Integer selectedGoodsId = intent.getIntExtra("selectedGoods", 0);
         String s_id = intent.getStringExtra("s_id");
+        String role = intent.getStringExtra("role");
 
         //实现返回功能
         Toolbar toolbar = this.findViewById(R.id.change_goods_toolbar);
@@ -47,11 +49,9 @@ public class UserGoodsChangeActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserGoodsChangeActivity.this, GoodsDetailActivity.class);
-                // 传递商品数据给详情页
-                intent.putExtra("selectedGoods", selectedGoodsId);
-                // 传递用户身份数据给详情页
-                intent.putExtra("role", "owner");
+                Intent intent = new Intent(UserGoodsChangeActivity.this, UserPageActivity.class);
+                intent.putExtra("s_id", s_id);
+                intent.putExtra("role", role);
                 startActivity(intent);
             }
         });
@@ -76,7 +76,6 @@ public class UserGoodsChangeActivity extends AppCompatActivity {
             String g_name = result.getString(3);
             String g_type = result.getString(4);
             String g_describe = result.getString(5);
-            byte[] g_picture = result.getBlob(6);
 
             //设置显示当前信息
             name.setText(g_name);
@@ -85,11 +84,11 @@ public class UserGoodsChangeActivity extends AppCompatActivity {
             ArrayAdapter<String> adapter = (ArrayAdapter<String>) category.getAdapter();
             int position = adapter.getPosition(g_type);
             category.setSelection(position);
-            if (g_picture != null){
-                Bitmap bitmap = BitmapFactory.decodeByteArray(g_picture, 0, g_picture.length); // 将 BLOB 数据转换为 Bitmap
-                image.setImageBitmap(bitmap); // 显示图像
-            }
+
         }
+
+        result.close(); // 关闭游标
+        db.close(); // 关闭数据库
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +116,7 @@ public class UserGoodsChangeActivity extends AppCompatActivity {
                 } else if (imageUri == null) {
                     Toast.makeText(UserGoodsChangeActivity.this, "请上传图片", Toast.LENGTH_SHORT).show();
                 } else {
-                    // 将 Bitmap 转换为字节数组
+//                     将 Bitmap 转换为字节数组
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri); // 从某处获取 Bitmap
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -128,20 +127,22 @@ public class UserGoodsChangeActivity extends AppCompatActivity {
                         SQLiteDatabase db = dbUtil.getWritableDatabase();//获取数据库连接
                         DBUtil.db=db;
 
-                        // 插入数据库
+                        // 修改数据库
                         ContentValues contentValues = new ContentValues();
-                        contentValues.put("s_id", s_id);
                         contentValues.put("g_price", priceT);
                         contentValues.put("g_name", nameT);
                         contentValues.put("g_type", categoryT);
                         contentValues.put("g_describe", detailT);
                         contentValues.put("g_picture", byte_image);
-                        db.insert("goods", null, contentValues);
+
+                        String whereClause = "g_id = ?";
+                        db.update("goods", contentValues, whereClause, new String[]{selectedGoodsId.toString()});
                         db.close();
 
                         Toast.makeText(UserGoodsChangeActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(UserGoodsChangeActivity.this, GoodsDetailActivity.class);
+                        Intent intent = new Intent(UserGoodsChangeActivity.this, UserPageActivity.class);
                         intent.putExtra("s_id", s_id);
+                        intent.putExtra("role", role);
                         startActivity(intent);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -171,7 +172,7 @@ public class UserGoodsChangeActivity extends AppCompatActivity {
             // 将选择的图片显示在 ImageView 中
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                ImageView imageView = findViewById(R.id.upload_image);
+                ImageView imageView = findViewById(R.id.change_goods_image);
                 imageView.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();

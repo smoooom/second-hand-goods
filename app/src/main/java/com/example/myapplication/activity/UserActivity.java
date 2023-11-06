@@ -222,6 +222,7 @@ public class UserActivity extends AppCompatActivity {
                 intent.putExtra("selectedGoods", selectedGoodsId);
                 // 传递用户身份数据给详情页
                 intent.putExtra("role","user");
+                intent.putExtra("s_id", s_id);
                 startActivity(intent);
             }
         });
