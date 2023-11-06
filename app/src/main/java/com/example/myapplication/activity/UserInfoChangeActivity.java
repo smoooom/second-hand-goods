@@ -68,15 +68,15 @@ public class UserInfoChangeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String conT = contact.getText().toString();
-                String address = "中校区";
+                String address = "mid";
                 if(east.isChecked()){
-                    address = "东校区";
+                    address = "east";
                 }
                 if(west.isChecked()){
-                    address = "西校区";
+                    address = "west";
                 }
                 if(high.isChecked()){
-                    address = "高新区";
+                    address = "high";
                 }
 
                 if(conT.isEmpty()){

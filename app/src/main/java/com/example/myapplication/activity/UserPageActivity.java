@@ -95,7 +95,20 @@ public class UserPageActivity extends AppCompatActivity {
 
             //将查询结果设置到界面视图
             user_id.setText("学工号："+s_id);
-            user_address.setText("地址："+s_address);
+            switch (s_address) {
+                case "east":
+                    user_address.setText("所在校区：东区");
+                    break;
+                case "west":
+                    user_address.setText("所在校区：西区");
+                    break;
+                case "mid":
+                    user_address.setText("所在校区：中区");
+                    break;
+                case "high":
+                    user_address.setText("所在校区：高新区");
+                    break;
+            }
             user_contact.setText("联系方式："+s_contact);
         }
 
