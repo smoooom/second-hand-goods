@@ -31,6 +31,18 @@
         android:visibility="gone"
     />
 
+    <Button
+        android:id="@+id/changeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="修改商品信息"
+        android:backgroundTint="#75ED7A"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        />
+
     <TextView
         android:id="@+id/goods_detail_goods_name"
         android:layout_width="match_parent"

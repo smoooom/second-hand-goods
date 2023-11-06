@@ -50,6 +50,7 @@ public class GoodsDetailActivity extends AppCompatActivity {
             Integer selectedGoodsId = intent.getIntExtra("selectedGoods", 0);
             String role = intent.getStringExtra("role");
             Button deleteButton = findViewById(R.id.deleteButton);
+            Button changeButton = findViewById(R.id.changeButton);
 
             if (Objects.equals(role, "admin")) {
                 // 如果是管理员，显示删除按钮
@@ -76,10 +77,22 @@ public class GoodsDetailActivity extends AppCompatActivity {
                         startActivity(AdminIntent);
                     }
                 });
+
+                // 如果是管理员，显示修改按钮
+                changeButton.setVisibility(View.VISIBLE);
+                changeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(GoodsDetailActivity.this, UserGoodsChangeActivity.class);
+                        intent.putExtra("selectedGoods", selectedGoodsId);
+                        startActivity(intent);
+                    }
+                });
             }
             else {
                 // 如果不是管理员，隐藏删除按钮
                 deleteButton.setVisibility(View.GONE);
+                changeButton.setVisibility(View.GONE);
             }
 
             // 查询数据库，使用 selectedGoodsId 作为条件
