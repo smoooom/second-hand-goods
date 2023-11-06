@@ -84,7 +84,7 @@ public class UserGoodsListActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Objects.equals(role, "user")){
+                if (Objects.equals(role, "owner")){
                     Intent intent=new Intent(UserGoodsListActivity.this, UserPageActivity.class);
                     intent.putExtra("s_id", s_id);
                     startActivity(intent);

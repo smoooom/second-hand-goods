@@ -121,7 +121,7 @@ public class UserPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(UserPageActivity.this, UserGoodsListActivity.class);
                 intent.putExtra("s_id", s_id);
-                intent.putExtra("role","user");
+                intent.putExtra("role","owner");
                 startActivity(intent);
             }
         });

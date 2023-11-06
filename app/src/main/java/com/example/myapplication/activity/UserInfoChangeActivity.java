@@ -41,6 +41,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String s_id = intent.getStringExtra("s_id");
+        String role = intent.getStringExtra("role");
 
         //实现返回功能
         Toolbar toolbar=this.findViewById(R.id.user_info_change_toolbar);
@@ -50,6 +51,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(UserInfoChangeActivity.this, UserPageActivity.class);
                 intent.putExtra("s_id", s_id);
+                intent.putExtra("role", role);
                 startActivity(intent);
             }
         });
@@ -86,6 +88,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
                     Toast.makeText(UserInfoChangeActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(UserInfoChangeActivity.this, UserPageActivity.class);
                     intent.putExtra("s_id", s_id);
+                    intent.putExtra("role", role);
                     startActivity(intent);
                 }
             }

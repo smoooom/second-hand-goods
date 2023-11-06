@@ -26,6 +26,7 @@ import com.example.myapplication.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 public class UserGoodsChangeActivity extends AppCompatActivity {
 
@@ -49,10 +50,18 @@ public class UserGoodsChangeActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserGoodsChangeActivity.this, UserPageActivity.class);
-                intent.putExtra("s_id", s_id);
-                intent.putExtra("role", role);
-                startActivity(intent);
+                if (Objects.equals(role, "admin")){
+                    Intent AdminIntent = new Intent(UserGoodsChangeActivity.this, AdminActivity.class);
+                    AdminIntent.putExtra("s_id", s_id);
+                    startActivity(AdminIntent);
+                }
+
+                if (Objects.equals(role, "owner")){
+                    Intent UserIntent = new Intent(UserGoodsChangeActivity.this, UserGoodsListActivity.class);
+                    UserIntent.putExtra("s_id", s_id);
+                    UserIntent.putExtra("role", role);
+                    startActivity(UserIntent);
+                }
             }
         });
 
@@ -140,10 +149,20 @@ public class UserGoodsChangeActivity extends AppCompatActivity {
                         db.close();
 
                         Toast.makeText(UserGoodsChangeActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(UserGoodsChangeActivity.this, UserPageActivity.class);
-                        intent.putExtra("s_id", s_id);
-                        intent.putExtra("role", role);
-                        startActivity(intent);
+
+                        if (Objects.equals(role, "admin")){
+                            Intent AdminIntent = new Intent(UserGoodsChangeActivity.this, AdminActivity.class);
+                            AdminIntent.putExtra("s_id", s_id);
+                            startActivity(AdminIntent);
+                        }
+
+                        if (Objects.equals(role, "owner")){
+                            Intent UserIntent = new Intent(UserGoodsChangeActivity.this, UserGoodsListActivity.class);
+                            UserIntent.putExtra("s_id", s_id);
+                            UserIntent.putExtra("role", role);
+                            startActivity(UserIntent);
+                        }
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

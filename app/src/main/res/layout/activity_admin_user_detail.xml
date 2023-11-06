@@ -128,23 +128,6 @@
                     android:layout_height="1dp"
                     android:background="#B4BABD" />
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/user_goods_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="#FFFFFF"
-                    android:layoutDirection="rtl"
-                    app:navigationIcon="@drawable/right_arrow">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:text="我的出售"
-                        android:textSize="20sp"
-                        android:textColor="@color/black"
-                        android:paddingEnd="10dp" />
-                </androidx.appcompat.widget.Toolbar>
 
                 <View
                     android:layout_width="match_parent"

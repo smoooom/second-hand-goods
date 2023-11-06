@@ -42,7 +42,7 @@ public class Admin_UserDetail extends AppCompatActivity {
         TextView user_address = findViewById(R.id.user_address);
         TextView user_contact = findViewById(R.id.user_contact);
         Button user_delete = findViewById(R.id.delete_user_button);
-        Toolbar user_goods_list = findViewById(R.id.user_goods_list);
+//        Toolbar user_goods_list = findViewById(R.id.user_goods_list);
 
         // 打开数据库连接
         DBUtil dbUtil = new DBUtil(Admin_UserDetail.this);
@@ -82,23 +82,25 @@ public class Admin_UserDetail extends AppCompatActivity {
         cursor.close(); // 关闭游标
         db.close(); // 关闭数据库连接
 
-        //跳转至我的出售
-        user_goods_list.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Admin_UserDetail.this, UserGoodsListActivity.class);
-                intent.putExtra("s_id", s_id);
-                intent.putExtra("role","admin");
-                startActivity(intent);
-            }
-        });
+//        //跳转至我的出售
+//        user_goods_list.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(Admin_UserDetail.this, UserGoodsListActivity.class);
+//                intent.putExtra("s_id", s_id);
+//                intent.putExtra("role","admin");
+//                startActivity(intent);
+//            }
+//        });
 
         //实现删除账号功能
         user_delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+
                 // 构建删除的 SQL 语句
-                String deleteQuery = "DELETE FROM user WHERE s_id = " + s_id;
+                String deleteQuery1 = "DELETE FROM user WHERE s_id = " + '\'' + s_id + '\'';
+                String deleteQuery2 = "DELETE FROM goods WHERE s_id = " + '\'' + s_id + '\'';
 
                 // 打开数据库连接
                 DBUtil dbUtil = new DBUtil(Admin_UserDetail.this);
@@ -106,13 +108,13 @@ public class Admin_UserDetail extends AppCompatActivity {
                 DBUtil.db=db;
 
                 // 执行 SQL 语句
-                db.execSQL(deleteQuery);
+                db.execSQL(deleteQuery1);
+                db.execSQL(deleteQuery2);
 
                 // 关闭数据库连接
                 db.close();
 
                 Toast.makeText(Admin_UserDetail.this, "用户已删除", Toast.LENGTH_SHORT).show();
-
                 Intent intent=new Intent(Admin_UserDetail.this, Admin_UserManage.class);
                 startActivity(intent);
             }

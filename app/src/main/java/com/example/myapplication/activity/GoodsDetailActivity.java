@@ -82,7 +82,7 @@ public class GoodsDetailActivity extends AppCompatActivity {
                     if (Objects.equals(role, "owner")){
                         Intent UserIntent = new Intent(GoodsDetailActivity.this, UserGoodsListActivity.class);
                         UserIntent.putExtra("s_id", S_id);
-                        UserIntent.putExtra("role", "user");
+                        UserIntent.putExtra("role", role);
                         startActivity(UserIntent);
                     }
 
