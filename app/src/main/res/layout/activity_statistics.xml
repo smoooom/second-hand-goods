@@ -8,10 +8,40 @@
     android:layout_height="match_parent"
     tools:context=".activity.Statistics">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户校区分布数据："
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/BarChart"
+        android:layout_below="@+id/text1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="240dp" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_below="@+id/BarChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="商品种类数据："
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold" />
+
+    <com.github.mikephil.charting.charts.RadarChart
+        android:id="@+id/radarChart"
+        android:layout_below="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="480dp" />
 
     <LinearLayout
         android:id="@+id/admin_main_radio"
